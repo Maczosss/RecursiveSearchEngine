@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E82AFE74-DF06-4D6E-AF80-1F39BF97CCB9}</ProjectGuid>
+    <ProjectGuid>{E6FE49EF-E0B4-4877-BF6D-68D78ED2B072}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MatchFinder</RootNamespace>
-    <AssemblyName>MatchFinder</AssemblyName>
+    <RootNamespace>DependenceFinder</RootNamespace>
+    <AssemblyName>DependenceFinder</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,12 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilesFinder.cs" />
+    <Compile Include="ClassesDefinedInFile.cs" />
+    <Compile Include="ClassesUsagesFoundInFile.cs" />
+    <Compile Include="NetClassesFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MatchFinder\FilesFinder.csproj">
+      <Project>{e82afe74-df06-4d6e-af80-1f39bf97ccb9}</Project>
+      <Name>FilesFinder</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

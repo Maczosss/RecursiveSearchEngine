@@ -5,13 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MatchFinder
+namespace FilesFinder
 {
-    public class FilesFinder
+    public class NetFilesFinder
     {
-        //Add strategies for different types of languages. i.e. ex. .net, Java.
-        public string TopMostDirectory { get; set; }
-        public FilesFinder(string topMostDirectory)
+        //TODO: Add strategies for different types of languages. i.e. ex. .net, Java.
+
+        public string TopMostDirectory { get; set; } = @"D:\Repositories\RecursiveSearchEngine";
+
+        public NetFilesFinder()
+        {
+            
+        }
+
+        public NetFilesFinder(string topMostDirectory)
         {
             this.TopMostDirectory = topMostDirectory;
         }
@@ -26,5 +33,11 @@ namespace MatchFinder
             result.AddRange(Directory.GetFiles(TopMostDirectory, "*.cs", SearchOption.AllDirectories));
             return result;
         }
+    }
+
+    public enum ProjectType
+    {
+        DotNet = 1,
+        Java = 2,
     }
 }
