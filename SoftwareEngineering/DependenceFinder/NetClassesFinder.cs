@@ -34,7 +34,7 @@ namespace DependenceFinder
                         Match checkForClassInLine = matchForClass.Match(line);
                         if (checkForClassInLine.Success)
                         {
-                            string foundClassName = checkForClassInLine.Groups["className"].Value;
+                            string foundClassName = checkForClassInLine.Groups["className"].Value.Trim();
                             classesDefinitionsFoundInThisFile.DefinedClassesNames.Add(foundClassName);
                             definitionsInFile.Add(classesDefinitionsFoundInThisFile);
                         }
@@ -49,19 +49,36 @@ namespace DependenceFinder
             return definitionsInFile;
         }
 
-        public List<ClassesUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classNamesToSearchFor)
+        public List<ClassesUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
+                                                                List<string> csFilesFoundInFolder)
         {
-            foreach (var classDefinitionsInFile in classNamesToSearchFor)
+            foreach (var classDefinitionInFile in classDefinitionsToSearchFor)
             {
-                foreach (var className in classDefinitionsInFile.DefinedClassesNames)
+                foreach (var className in classDefinitionInFile.DefinedClassesNames)
                 {
                     //find that class name being used as a type in files different than classDefinitionsInFile.InFile
+                    var filesToCheck = csFilesFoundInFolder.Where(e => e != classDefinitionInFile.InFile).ToList();
+                    string classNameUsedAsTypeOrCtorPattern = @"((\s*|\()" + className + @"[\s*]{1,})|" + className + "()";
+                    Regex matchForClassBeingUsed = new Regex(classNameUsedAsTypeOrCtorPattern);
+
+                    foreach (var path in filesToCheck)
+                    {
+                        using (StreamReader reader = new StreamReader(path))
+                        {
+                            string line;
+                            while ((line = reader.ReadLine()) != null)
+                            {
+                                Match checkForClassBeingUsed = matchForClassBeingUsed.Match(line);
+                                if (true)
+                                {
+                                    //found class usage in file different than file with definition.
+                                }
+                            }
+                        }
+
+                    }
                 }
             }
         }
-
-
-	
-
     }
 }
