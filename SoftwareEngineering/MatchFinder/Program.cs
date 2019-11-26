@@ -10,6 +10,10 @@ namespace MatchFinder
     {
         static void Main(string[] args)
         {
+            // D:\Repositories\RecursiveSearchEngine
+            string path = @"D:\Repositories\RecursiveSearchEngine";
+            FilesFinder netFinder = new FilesFinder(path);
+            var foundNetFiles = netFinder.FindFiles();
         }
     }
 }
