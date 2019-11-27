@@ -29,7 +29,7 @@ namespace DependenceFinder
                 using (StreamReader reader = new StreamReader(path))
                 {
                     string line;
-                    while ((line = reader.ReadLine()) != null)
+                    while ((line = reader.ReadLine()) != null && !line.Trim().StartsWith("//"))
                     {
                         Match checkForClassInLine = matchForClass.Match(line);
                         if (checkForClassInLine.Success)
@@ -48,10 +48,11 @@ namespace DependenceFinder
             }
             return definitionsInFile;
         }
-
+        
         public List<ClassesUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
                                                                 List<string> csFilesFoundInFolder)
         {
+            var result = new List<ClassesUsagesFoundInFile>();
             foreach (var classDefinitionInFile in classDefinitionsToSearchFor)
             {
                 foreach (var className in classDefinitionInFile.DefinedClassesNames)
@@ -63,22 +64,34 @@ namespace DependenceFinder
 
                     foreach (var path in filesToCheck)
                     {
+                        int occurances = 0;
                         using (StreamReader reader = new StreamReader(path))
                         {
                             string line;
-                            while ((line = reader.ReadLine()) != null)
+                            
+                            while ((line = reader.ReadLine()) != null && !line.StartsWith("//"))
                             {
                                 Match checkForClassBeingUsed = matchForClassBeingUsed.Match(line);
-                                if (true)
+                                if (checkForClassBeingUsed.Success)
                                 {
                                     //found class usage in file different than file with definition.
+                                    occurances++;
+                                }
+                                else
+                                {
+                                    continue;
                                 }
                             }
-                        }
 
+                        }
+                        if (occurances != 0)
+                        {
+                            result.Add(new ClassesUsagesFoundInFile() { ClassName = className, WasUsedInFile = path, ThatManyTimes = occurances });
+                        }
                     }
                 }
             }
+            return result;
         }
     }
 }

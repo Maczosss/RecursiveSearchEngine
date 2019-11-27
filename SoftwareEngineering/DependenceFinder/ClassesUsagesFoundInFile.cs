@@ -9,11 +9,12 @@ namespace DependenceFinder
     class ClassesUsagesFoundInFile
     {
         public string ClassName { get; set; }
-        public List<string> WasUsedInFiles { get; set; }
+        public string WasUsedInFile { get; set; }
+        public int ThatManyTimes { get; set; }
 
         public ClassesUsagesFoundInFile()
         {
-            WasUsedInFiles = new List<string>();
+            
         }
     }
 }
