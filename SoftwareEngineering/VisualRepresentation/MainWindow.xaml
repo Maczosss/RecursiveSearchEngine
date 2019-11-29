@@ -1,0 +1,33 @@
+﻿<Window x:Class="VisualRepresentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VisualRepresentation"
+        mc:Ignorable="d"
+        Title="Software Engineering" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Button x:Name="browse" Content="Browse directory..." Grid.Column="1" Grid.Row="1" Margin="15"/>
+        <ListBox x:Name="storyList" Grid.Column="4" Grid.RowSpan="7" Margin="15"/>
+        <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="15"/>
+        <Grid Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="68.2,43.6,0,0" Grid.Row="3" Grid.RowSpan="3" VerticalAlignment="Top" Width="100"/>
+    </Grid>
+</Window>
