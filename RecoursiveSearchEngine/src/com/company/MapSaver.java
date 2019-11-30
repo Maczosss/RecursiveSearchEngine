@@ -43,7 +43,7 @@ class MapSaver {
                 if (!anImport.equals("|")) {
                     importsForSpecificMap.add(anImport);
                 } else {
-                    this.neighbourMap.put(classesNames.get(documentsCounter), importsForSpecificMap);
+                    this.neighbourMap.put(classesNames.get(documentsCounter), new LinkedList<>(importsForSpecificMap));
                     importsForSpecificMap.clear();
                     documentsCounter++;
                 }

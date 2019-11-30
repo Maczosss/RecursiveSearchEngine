@@ -7,6 +7,6 @@ public class Main {
         String fileName = "path to file";
         Reader reader = new Reader(fileName);
         MapSaver saver = new MapSaver(reader.getTextFromFiles());
-        saver.getMapWithAllData();
+        System.out.println(saver.getMapWithAllData());
     }
 }
