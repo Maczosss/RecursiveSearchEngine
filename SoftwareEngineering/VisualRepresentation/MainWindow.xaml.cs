@@ -28,7 +28,7 @@ namespace VisualRepresentation
             {
                 if (dialog.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK)
                 {
-                    // Use dialog.SelectedPath.
+                    Console.WriteLine(dialog.SelectedPath);
                 }
             }
         }
