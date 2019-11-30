@@ -25,7 +25,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Button x:Name="browse" Content="Browse directory..." Grid.Column="1" Grid.Row="1" Margin="15"/>
+        <Button x:Name="browse" Content="Browse directory..." Grid.Column="1" Grid.Row="1" Margin="15" Click="ButtonClick"/>
         <ListBox x:Name="storyList" Grid.Column="4" Grid.RowSpan="7" Margin="15"/>
         <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="15"/>
         <Grid Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="68.2,43.6,0,0" Grid.Row="3" Grid.RowSpan="3" VerticalAlignment="Top" Width="100"/>

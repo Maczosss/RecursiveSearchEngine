@@ -12,17 +12,41 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace VisualRepresentation
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+        void ButtonClick(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK)
+                {
+                    // Use dialog.SelectedPath.
+                }
+            }
+        }
+    }
+    public static class WinFormsCompatibility
+    {
+        public static IWin32Window GetIWin32Window(this Window window)
+        {
+            return new Win32Window(new System.Windows.Interop.WindowInteropHelper(window).Handle);
+        }
+    
+        class Win32Window : IWin32Window
+        { 
+            public Win32Window(IntPtr handle)
+            {
+                Handle = handle;
+            }
+            public IntPtr Handle { get; }
         }
     }
 }
