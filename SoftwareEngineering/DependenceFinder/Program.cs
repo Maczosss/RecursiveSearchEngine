@@ -14,8 +14,8 @@ namespace DependenceFinder
             NetFilesFinder netFinder = new NetFilesFinder();
             var foundNetFiles = netFinder.FindFiles();
 
-            NetClassesFinder netClassesFinder = new NetClassesFinder(foundNetFiles);
-            var foundClassesDefinitionsInFiles = netClassesFinder.findDefinitions();
+            NetClassDefinitionsFinder netClassesFinder = new NetClassDefinitionsFinder(foundNetFiles);
+            var foundClassesDefinitionsInFiles = netClassesFinder.findClassDefinitions();
 
             var result = netClassesFinder.findClassesUsages(foundClassesDefinitionsInFiles, foundNetFiles);
             Console.ReadLine();

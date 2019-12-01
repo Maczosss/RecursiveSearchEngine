@@ -45,9 +45,11 @@
   <ItemGroup>
     <Compile Include="ClassesDefinedInFile.cs" />
     <Compile Include="ClassesUsagesFoundInFile.cs" />
-    <Compile Include="NetClassesFinder.cs" />
+    <Compile Include="NetClassDefinitionsFinder.cs" />
+    <Compile Include="NetUsingDirectiveFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsingDirectiveInFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

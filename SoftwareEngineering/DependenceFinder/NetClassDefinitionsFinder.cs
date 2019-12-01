@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace DependenceFinder
 {
-    class NetClassesFinder
+    class NetClassDefinitionsFinder
     {
         public List<string> CsFiles { get; set; }
-        public NetClassesFinder(List<string> csFiles)
+        public NetClassDefinitionsFinder(List<string> csFiles)
         {
             this.CsFiles = csFiles;
         }
 
-        public List<ClassesDefinedInFile> findDefinitions()
+        public List<ClassesDefinedInFile> findClassDefinitions()
         {
             List<ClassesDefinedInFile> definitionsInFile = new List<ClassesDefinedInFile>();
             foreach (var path in CsFiles)
             {
-                ClassesDefinedInFile classesDefinitionsFoundInThisFile = new ClassesDefinedInFile();
-                classesDefinitionsFoundInThisFile.InFile = path;
+                ClassesDefinedInFile classesDefinitionFoundInThisFile = new ClassesDefinedInFile();
+                classesDefinitionFoundInThisFile.InFile = path;
 
                 Regex matchForClass = new Regex(@"(?<partialDefinition>\w*)\s*class[\s*]{1,}(?<className>\w*)\s*");
 
@@ -35,8 +35,8 @@ namespace DependenceFinder
                         if (checkForClassInLine.Success)
                         {
                             string foundClassName = checkForClassInLine.Groups["className"].Value.Trim();
-                            classesDefinitionsFoundInThisFile.DefinedClassesNames.Add(foundClassName);
-                            definitionsInFile.Add(classesDefinitionsFoundInThisFile);
+                            classesDefinitionFoundInThisFile.DefinedClassesNames.Add(foundClassName);
+                            definitionsInFile.Add(classesDefinitionFoundInThisFile);
                         }
                         else
                         {
