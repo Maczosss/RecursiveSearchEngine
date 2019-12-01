@@ -29,10 +29,10 @@ namespace DependenceFinder
                 using (StreamReader reader = new StreamReader(path))
                 {
                     string line;
-                    while ((line = reader.ReadLine()) != null && !line.Trim().StartsWith("//"))
+                    while ((line = reader.ReadLine()) != null )
                     {
                         Match checkForClassInLine = matchForClass.Match(line);
-                        if (checkForClassInLine.Success)
+                        if (checkForClassInLine.Success && !line.Trim().StartsWith("//"))
                         {
                             string foundClassName = checkForClassInLine.Groups["className"].Value.Trim();
                             classesDefinitionFoundInThisFile.DefinedClassesNames.Add(foundClassName);
@@ -61,10 +61,10 @@ namespace DependenceFinder
                     var filesToCheck = csFilesFoundInFolder.Where(e => e != classDefinitionInFile.InFile).ToList();
                     string classNameUsedAsTypeOrCtorPattern = @"((\s*|\()" + className + @"[\s*]{1,})|" + className + "()";
                     Regex matchForClassBeingUsed = new Regex(classNameUsedAsTypeOrCtorPattern);
-
+                    
                     foreach (var path in filesToCheck)
                     {
-                        int occurances = 0;
+                       int occurances = 0; 
                         using (StreamReader reader = new StreamReader(path))
                         {
                             string line;
@@ -93,5 +93,9 @@ namespace DependenceFinder
             }
             return result;
         }
+    }
+    class innaklasa
+    {
+
     }
 }

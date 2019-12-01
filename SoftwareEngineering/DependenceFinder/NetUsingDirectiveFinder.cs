@@ -48,10 +48,15 @@ namespace DependenceFinder
                     }
                 }
             }
-            return UsingDirectiveInFile;
+            return usingDirectivesInFile;
         }
 
-        private List<string> findUsedUsingDirectives();
+        //private List<string> findUsedUsingDirectives() 
+        
+        //{ 
+        
+        
+        //};
 
 
     }
