@@ -1,4 +1,6 @@
 # Default ignored files
 .idea/workspace.xml
+.idea/encodings.xml
+.idea/libraries
 /target
 .png
