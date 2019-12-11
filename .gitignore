@@ -2,7 +2,7 @@
 .idea/workspace.xml
 .idea/encodings.xml
 .idea/libraries
-.idea/RecursiveSearchEngine.iml
+.idea/*.iml
 RecoursiveSearchEngine/out/
 /target
-.png
+*.png
