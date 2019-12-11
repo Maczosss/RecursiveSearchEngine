@@ -27,10 +27,17 @@ namespace FilesFinder
         /// Findes files with proper extension recursively, searching downward from provided location.
         /// </summary>
         /// <returns></returns>
-        public List<string> FindFiles()
+        public List<string> FindCsFiles()
         {
             List<string> result = new List<string>();
             result.AddRange(Directory.GetFiles(TopMostDirectory, "*.cs", SearchOption.AllDirectories));
+            return result;
+        }
+
+        public List<string> FindCsProjFiles()
+        {
+            List<string> result = new List<string>();
+            result.AddRange(Directory.GetFiles(TopMostDirectory, "*.csproj", SearchOption.AllDirectories));
             return result;
         }
     }

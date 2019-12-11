@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DependenceFinder.Nodes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace DependenceFinder
+namespace DependenceFinder.Finders
 {
     class NetClassDefinitionsFinder
     {
@@ -49,10 +50,11 @@ namespace DependenceFinder
             return definitionsInFile;
         }
         
-        public List<ClassesUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
+        public List<ClassUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
                                                                 List<string> csFilesFoundInFolder)
         {
-            var result = new List<ClassesUsagesFoundInFile>();
+            
+            var result = new List<ClassUsagesFoundInFile>();
             foreach (var classDefinitionInFile in classDefinitionsToSearchFor)
             {
                 foreach (var className in classDefinitionInFile.DefinedClassesNames)
@@ -86,7 +88,7 @@ namespace DependenceFinder
                         }
                         if (occurances != 0)
                         {
-                            result.Add(new ClassesUsagesFoundInFile() { ClassName = className, WasUsedInFile = path, ThatManyTimes = occurances });
+                            result.Add(new ClassUsagesFoundInFile() { ClassName = className, WasUsedInFile = path, ThatManyTimes = occurances });
                         }
                     }
                 }

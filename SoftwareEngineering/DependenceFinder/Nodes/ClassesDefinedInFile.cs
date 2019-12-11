@@ -1,12 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DependenceFinder
+namespace DependenceFinder.Nodes
 {
-    public class ClassesDefinedInFile
+    
+    public class ClassesDefinedInFile //: IDependable
     {
         public List<string> DefinedClassesNames { get; set; }
         public string InFile { get; set; }

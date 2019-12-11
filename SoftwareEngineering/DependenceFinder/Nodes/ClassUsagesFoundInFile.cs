@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DependenceFinder
+namespace DependenceFinder.Nodes
 {
-    class ClassesUsagesFoundInFile
+    class ClassUsagesFoundInFile
     {
         public string ClassName { get; set; }
         public string WasUsedInFile { get; set; }
         public int ThatManyTimes { get; set; }
 
-        public ClassesUsagesFoundInFile()
+        public ClassUsagesFoundInFile()
         {
             
         }
