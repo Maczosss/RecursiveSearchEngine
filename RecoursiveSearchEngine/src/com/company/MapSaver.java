@@ -10,6 +10,34 @@ class MapSaver {
         this.dataList = dataList;
     }
 
+    Map<String, List<String>> getMapWithAllData2() {
+        String temporaryClassName = "";
+        List<String> temporaryImports = new LinkedList<>();
+        for (String s : dataList) {
+            if(!s.contains("File end")) {
+                if (s.contains("class ") && !s.contains("(")) {
+                    String line = s.strip();
+                    int counterBegin = line.lastIndexOf("ss") + 2;
+                    int counterEnd = line.lastIndexOf("{");
+                    temporaryClassName = line.substring(counterBegin, counterEnd).strip();
+                }
+
+                if (s.contains("import ") && !s.contains("s.contains")) {
+                    String line = s.strip();
+                    int counterBegin = line.lastIndexOf(" ");
+                    int counterEnd = line.lastIndexOf(";");
+                    String imp = line.substring(counterBegin, counterEnd).strip();
+                    temporaryImports.add(imp);
+                }
+            }else if(!s.contains("(")){
+                neighbourMap.put(temporaryClassName, new LinkedList<>(temporaryImports));
+                temporaryClassName="";
+                temporaryImports.clear();
+            }
+        }
+        return neighbourMap;
+    }
+
     Map<String, List<String>> getMapWithAllData() {
 
         int documentsCounter = 0;

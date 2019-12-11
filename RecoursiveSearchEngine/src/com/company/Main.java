@@ -9,7 +9,7 @@ public class Main {
         String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
         Reader reader = new Reader(fileName);
         MapSaver saver = new MapSaver(reader.getTextFromFiles());
-        Map<String, List<String>> neighbourMap = saver.getMapWithAllData();
+        Map<String, List<String>> neighbourMap = saver.getMapWithAllData2();
 
         System.out.println(neighbourMap);
         MapImageGenerator generator = new MapImageGenerator(neighbourMap);
