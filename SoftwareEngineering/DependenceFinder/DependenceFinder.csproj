@@ -119,9 +119,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finders\MethodNamespaceFinder.cs" />
     <Compile Include="Finders\NetIncludeReferenceFinder.cs" />
     <Compile Include="Finders\NetMethodDeclarationsFinder.cs" />
     <Compile Include="Finders\NetMethodInvocationsFinder.cs" />
+    <Compile Include="Finders\NetSemanticModelGetter.cs" />
     <Compile Include="Nodes\ClassesDefinedInFile.cs" />
     <Compile Include="Nodes\ClassUsagesFoundInFile.cs" />
     <Compile Include="Finders\NetClassDefinitionsFinder.cs" />

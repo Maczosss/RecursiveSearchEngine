@@ -1,10 +1,8 @@
-﻿using ICSharpCode.NRefactory.CSharp;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DependenceFinder.Nodes;
 
 namespace DependenceFinder.Finders
 {
@@ -21,7 +19,6 @@ namespace DependenceFinder.Finders
             var file = File.ReadAllText(csFilePath);
 
             var fileSyntaxTree = CSharpSyntaxTree.ParseText(file);
-            //CompilationUnitSyntax compilationUnitSytnax = fileSyntaxTree.GetCompilationUnitRoot();
             var root = fileSyntaxTree.GetRoot();
 
             var methodDeclarationTreeNodes = root.DescendantNodes().OfType<MethodDeclarationSyntax>();
@@ -34,7 +31,6 @@ namespace DependenceFinder.Finders
 
         }
 
-        //var methodCalls = root.DescendantNodes().OfType<InvocationExpressionSyntax>();
 
         //var usingStatements = root.DescendantNodesAndSelf().OfType<UsingStatementSyntax>(); //i.e. using (StreamReader reader = new StreamReader(path)){};
 

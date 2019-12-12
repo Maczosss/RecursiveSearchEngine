@@ -2,7 +2,6 @@
 using DependenceFinder.Nodes;
 using FilesFinder;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,25 +52,17 @@ namespace DependenceFinder
 
             }
 
-            foreach (var invocationsInFiles in invocationsInFilesResult)
+            //finding if any descendant of mehod declaration is of method invocation type:
+            foreach (var declarations in declarationsInFilesResult)
             {
-                foreach (var invocation in invocationsInFiles.MethodInvocations)
+                foreach (var declaration in declarations.MethodDeclarations)
                 {
-                    if (invocation.Parent.GetType() is InvocationExpressionSyntax)
-                        Console.WriteLine("Łokurwa mamy zagniezdzenie metod! \n");
+                    
+                    IEnumerable<InvocationExpressionSyntax> allInvocations = 
+                        declaration.DescendantNodes().OfType<InvocationExpressionSyntax>();
                 }
             }
 
-            //declarationsInFilesResult = declarationsInFilesResult.Where(e => e.MethodDeclarations.Count != 0).ToList();
-            //foreach (var item in declarationsInFilesResult)
-            //{
-            //    Console.WriteLine(@"In file: " + item.InFile + " I found:");
-            //    foreach (var declaration in item.MethodDeclarations)
-            //    {
-            //        Console.WriteLine("\t" + declaration.Identifier.Text + "\n");
-            //    }
-                
-            //}
         }
     }
 }
