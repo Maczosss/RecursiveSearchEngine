@@ -4,23 +4,22 @@ using System.Xml;
 
 namespace DependenceFinder.Finders
 {
-    class NetIncludeReferenceFinder
+    class IncludeReferenceFinder
     {
         public List<string> CsPRojFiles { get; set; }
 
-        public NetIncludeReferenceFinder(List<string> csProjFiles)
+        public IncludeReferenceFinder(List<string> csProjFiles)
         {
             this.CsPRojFiles = csProjFiles;
         }
 
-        public List<UsingDirectivesInFile> findReferencesIncludedInCsProj()
+        public List<UsingDirectivesInFile> GetReferencesIncludedInCsProj()
         {
             var result = new List<UsingDirectivesInFile>();
             foreach (var file in CsPRojFiles)
             {
                 XmlDocument csproj = new XmlDocument();
                 csproj.Load(file);
-                //csproj.LoadXml(file);
             }
 
             return result;

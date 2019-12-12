@@ -6,15 +6,15 @@ using System.Text.RegularExpressions;
 
 namespace DependenceFinder.Finders
 {
-    class NetClassDefinitionsFinder
+    class ClassDefinitionsFinder
     {
         public List<string> CsFiles { get; set; }
-        public NetClassDefinitionsFinder(List<string> csFiles)
+        public ClassDefinitionsFinder(List<string> csFiles)
         {
             this.CsFiles = csFiles;
         }
 
-        public List<ClassesDefinedInFile> findClassDefinitions()
+        public List<ClassesDefinedInFile> GetClassDefinitions()
         {
             List<ClassesDefinedInFile> definitionsInFile = new List<ClassesDefinedInFile>();
             foreach (var path in CsFiles)
@@ -47,10 +47,9 @@ namespace DependenceFinder.Finders
             return definitionsInFile;
         }
         
-        public List<ClassUsagesFoundInFile> findClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
+        public List<ClassUsagesFoundInFile> GetClassesUsages(List<ClassesDefinedInFile> classDefinitionsToSearchFor, 
                                                                 List<string> csFilesFoundInFolder)
         {
-            
             var result = new List<ClassUsagesFoundInFile>();
             foreach (var classDefinitionInFile in classDefinitionsToSearchFor)
             {
@@ -92,9 +91,5 @@ namespace DependenceFinder.Finders
             }
             return result;
         }
-    }
-    class innaklasa
-    {
-
     }
 }

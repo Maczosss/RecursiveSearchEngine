@@ -120,14 +120,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Finders\MethodNamespaceFinder.cs" />
-    <Compile Include="Finders\NetIncludeReferenceFinder.cs" />
-    <Compile Include="Finders\NetMethodDeclarationsFinder.cs" />
-    <Compile Include="Finders\NetMethodInvocationsFinder.cs" />
+    <Compile Include="Finders\IncludeReferenceFinder.cs" />
+    <Compile Include="Finders\MethodDeclarationsFinder.cs" />
+    <Compile Include="Finders\MethodInvocationsFinder.cs" />
+    <Compile Include="Finders\MethodNestedInvocationsFinder.cs" />
     <Compile Include="Finders\NetSemanticModelGetter.cs" />
     <Compile Include="Nodes\ClassesDefinedInFile.cs" />
     <Compile Include="Nodes\ClassUsagesFoundInFile.cs" />
-    <Compile Include="Finders\NetClassDefinitionsFinder.cs" />
-    <Compile Include="Finders\NetUsingDirectiveFinder.cs" />
+    <Compile Include="Finders\ClassDefinitionsFinder.cs" />
+    <Compile Include="Finders\UsingDirectiveFinder.cs" />
     <Compile Include="Nodes\IncludedCompileCsFiles.cs" />
     <Compile Include="Nodes\IncludedReferencesInCsProj.cs" />
     <Compile Include="Nodes\MethodDeclarationsInFile.cs" />

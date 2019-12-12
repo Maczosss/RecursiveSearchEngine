@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DependenceFinder.Nodes
 {
-    class UsingDirectivesInFile //: IDependable
+    class UsingDirectivesInFile 
     {
         public List<UsingDirectiveSyntax> UsingDirectives { get; set; }
         public string InFile { get; set; }

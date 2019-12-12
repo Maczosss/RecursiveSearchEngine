@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace DependenceFinder.Finders
 {
-    class NetMethodDeclarationsFinder
+    class MethodDeclarationsFinder
     {
-        public NetMethodDeclarationsFinder()
+        public MethodDeclarationsFinder()
         {
         }
 
-        public List<MethodDeclarationSyntax> FindMethodsDecalarationsInFIle(string csFilePath)
+        public List<MethodDeclarationSyntax> GetMethodsDecalarationsInFIle(string csFilePath)
         {
             var result = new List<MethodDeclarationSyntax>();
 
@@ -28,15 +28,7 @@ namespace DependenceFinder.Finders
             }
 
             return result;
-
         }
-
-
         //var usingStatements = root.DescendantNodesAndSelf().OfType<UsingStatementSyntax>(); //i.e. using (StreamReader reader = new StreamReader(path)){};
-
-        //var namespaces = root.DescendantNodes().OfType<NamespaceDeclaration>();
-        //var namespaces2 = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>();
-
-
     }
 }

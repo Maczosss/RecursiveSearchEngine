@@ -20,7 +20,7 @@ namespace FilesFinder
         }
 
         /// <summary>
-        /// Findes files with proper extension recursively, searching downward from provided location.
+        /// Finds files with proper extension recursively, searching downward from provided location.
         /// </summary>
         /// <returns></returns>
         public List<string> FindCsFiles()

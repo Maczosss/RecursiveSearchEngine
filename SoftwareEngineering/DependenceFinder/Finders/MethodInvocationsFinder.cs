@@ -6,16 +6,15 @@ using System.Linq;
 
 namespace DependenceFinder.Finders
 {
-    class NetMethodInvocationsFinder
+    class MethodInvocationsFinder
     {
-        public List<InvocationExpressionSyntax> FindMethodsInvocationsInFIle(string csFilePath)
+        public List<InvocationExpressionSyntax> GetMethodsInvocationsInFIle(string csFilePath)
         {
             var result = new List<InvocationExpressionSyntax>();
 
             var file = File.ReadAllText(csFilePath);
 
             var fileSyntaxTree = CSharpSyntaxTree.ParseText(file);
-            //CompilationUnitSyntax compilationUnitSytnax = fileSyntaxTree.GetCompilationUnitRoot();
             var root = fileSyntaxTree.GetRoot();
 
             var methodInvocationTreeNodes = root.DescendantNodes().OfType<InvocationExpressionSyntax>();
@@ -23,7 +22,6 @@ namespace DependenceFinder.Finders
             {
                 result.Add(invocation);
             }
-            
             return result;
         }
     }
