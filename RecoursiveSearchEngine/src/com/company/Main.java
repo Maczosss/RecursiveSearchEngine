@@ -15,5 +15,7 @@ public class Main {
         MapImageGenerator generator = new MapImageGenerator(neighbourMap);
         generator.toPNG();
         System.out.println(fileName);
+
+        new Frame();
     }
 }
