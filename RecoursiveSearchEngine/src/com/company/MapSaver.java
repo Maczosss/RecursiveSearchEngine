@@ -4,13 +4,15 @@ import java.util.*;
 
 class MapSaver {
     private Map<String, List<String>> neighbourMap = new HashMap<>();
+    private Map<Map<String, Integer>, List<String>> neighbourMap2 = new HashMap<>();
     private List<String> dataList;
 
     MapSaver(List<String> dataList) {
         this.dataList = dataList;
     }
 
-    Map<String, List<String>> getMapWithAllData2() {
+    Map<Map<String, Integer>, List<String>> getMapWithAllData2() {
+        int lineCounterForFile=0;
         String temporaryClassName = "";
         List<String> temporaryImports = new LinkedList<>();
         for (String s : dataList) {
@@ -29,13 +31,17 @@ class MapSaver {
                     String imp = line.substring(counterBegin, counterEnd).strip();
                     temporaryImports.add(imp);
                 }
+                lineCounterForFile++;
             }else if(!s.contains("(")){
-                neighbourMap.put(temporaryClassName, new LinkedList<>(temporaryImports));
+                Map<String,Integer> keyMap =new HashMap<>();
+                keyMap.put(temporaryClassName,lineCounterForFile);
+                neighbourMap2.put(keyMap, new LinkedList<>(temporaryImports));
                 temporaryClassName="";
                 temporaryImports.clear();
+                lineCounterForFile=0;
             }
         }
-        return neighbourMap;
+        return neighbourMap2;
     }
 
     Map<String, List<String>> getMapWithAllData() {
