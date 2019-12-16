@@ -4,29 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualRepresentation"
+        xmlns:VM="clr-namespace:VisualRepresentation.ViewModels"
         mc:Ignorable="d"
         Title="Software Engineering" Height="450" Width="800">
+    <Window.DataContext>
+        <VM:MainViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
-        <Button x:Name="browse" Content="Browse directory..." Grid.Column="1" Grid.Row="1" Margin="15" Click="ButtonClick"/>
-        <ListBox x:Name="storyList" Grid.Column="4" Grid.RowSpan="7" Margin="15"/>
-        <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="15"/>
+        
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+            <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ButtonClick"/>
+            <TextBlock Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" Text = "{Binding PathToFile}"></TextBlock>
+            <GroupBox Header="Opcje:"   Margin="10" >
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="0,0,10,0">Story 1</CheckBox>
+                    <CheckBox Margin="0,0,10,0">Story 2</CheckBox>
+                    <CheckBox >Story 3</CheckBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
+            <Button Margin="0,0,8,0" Padding="4">Generuj graf</Button>
+            <Button Margin="0, 0, 8, 0" Padding="4">Wksportuj do .chujwieco</Button>
+            <Button Margin="0, 0, 8, 0" Padding="4">Anuluj</Button>
+        </StackPanel>
+        <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4"  Margin="15"/>
     </Grid>
 </Window>

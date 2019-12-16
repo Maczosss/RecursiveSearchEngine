@@ -13,14 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using VisualRepresentation.ViewModels;
 
 namespace VisualRepresentation
 {
     public partial class MainWindow : Window
     {
+        public MainViewModel mainWindowViewModel;
         public MainWindow()
         {
             InitializeComponent();
+            mainWindowViewModel = this.DataContext as MainViewModel;
         }
         void ButtonClick(object sender, RoutedEventArgs e)
         {
