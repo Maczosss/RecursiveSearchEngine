@@ -14,6 +14,7 @@ namespace DependenceFinder
         {
             NetFilesFinder netFilesFinder = new NetFilesFinder();
             var foundCsFiles = netFilesFinder.FindCsFiles();
+            var hasany = netFilesFinder.HasFolderAnyCsFiles();
 
             //NetClassDefinitionsFinder netClassesFinder = new NetClassDefinitionsFinder(foundNetFiles);
             //var foundClassesDefinitionsInFiles = netClassesFinder.findClassDefinitions();

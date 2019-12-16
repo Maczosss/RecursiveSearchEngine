@@ -13,11 +13,7 @@ namespace VisualRepresentation.ViewModels
         {
 
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
 
 
         private string _pathToFile = "Choose folder with files to graph.";
@@ -34,5 +30,13 @@ namespace VisualRepresentation.ViewModels
                 OnPropertyChanged("PathToFile");
             }
         }
+
+        #region Property changed interaction
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }
