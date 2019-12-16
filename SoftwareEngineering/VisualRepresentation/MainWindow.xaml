@@ -27,7 +27,9 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
             <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ChooseFolderToGraphClick"/>
-            <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" Text = "{Binding PathToFile}" 
+            <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" 
+                       PreviewMouseLeftButtonUp="ChooseFolderToGraphClick"
+                       Text = "{Binding PathToFile}" 
                        PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
                        MouseDoubleClick="SelectAddress"  
                        GotKeyboardFocus="SelectAddress"

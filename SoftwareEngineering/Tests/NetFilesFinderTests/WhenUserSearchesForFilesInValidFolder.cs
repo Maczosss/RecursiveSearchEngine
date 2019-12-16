@@ -12,7 +12,7 @@ namespace Tests.NetFilesFinder
     {
 
         [TestMethod]
-        public void ThenProperAmmountOfFilesIsReturned()
+        public void ThenProperAmountOfFilesIsReturned()
         {
             
         }

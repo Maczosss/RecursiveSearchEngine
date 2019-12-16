@@ -16,8 +16,6 @@ namespace VisualRepresentation.ViewModels
 
         }
         
-
-
         private string _pathToFile = "Choose folder with files to graph.";
 
         public string PathToFile
