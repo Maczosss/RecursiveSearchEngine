@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using VisualRepresentation.ViewModels;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace VisualRepresentation
 {
@@ -25,16 +26,38 @@ namespace VisualRepresentation
             InitializeComponent();
             mainWindowViewModel = this.DataContext as MainViewModel;
         }
-        void ButtonClick(object sender, RoutedEventArgs e)
+        void ChooseFolderToGraphClick(object sender, RoutedEventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
             {
                 if (dialog.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK)
                 {
-                    Console.WriteLine(dialog.SelectedPath);
+                    mainWindowViewModel.PathToFile = dialog.SelectedPath;
                 }
             }
         }
+        #region Select all text after clicking textbox
+        private void SelectAddress(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+            if (tb != null)
+            {
+                tb.SelectAll();
+            }
+        }
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+            if (tb != null)
+            {
+                if (!tb.IsKeyboardFocusWithin)
+                {
+                    e.Handled = true;
+                    tb.Focus();
+                }
+            }
+        }
+        #endregion
     }
     public static class WinFormsCompatibility
     {

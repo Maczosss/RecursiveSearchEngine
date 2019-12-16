@@ -26,8 +26,12 @@
         
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-            <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ButtonClick"/>
-            <TextBlock Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" Text = "{Binding PathToFile}"></TextBlock>
+            <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ChooseFolderToGraphClick"/>
+            <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" Text = "{Binding PathToFile}" 
+                       PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                       MouseDoubleClick="SelectAddress"  
+                       GotKeyboardFocus="SelectAddress"
+                  ToolTip="Folder containing C# project."/>
             <GroupBox Header="Opcje:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="0,0,10,0">Story 1</CheckBox>
