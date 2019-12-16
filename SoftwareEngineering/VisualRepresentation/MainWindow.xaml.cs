@@ -25,7 +25,14 @@ namespace VisualRepresentation
         {
             InitializeComponent();
             mainWindowViewModel = this.DataContext as MainViewModel;
+
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         void ChooseFolderToGraphClick(object sender, RoutedEventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
