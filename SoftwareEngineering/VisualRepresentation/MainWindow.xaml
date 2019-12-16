@@ -26,20 +26,57 @@
         
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-            <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ButtonClick"/>
+            <Button x:Name="browse" Content="Browse directory...  "  Margin="10,15,00,10" Click="ButtonClick"/>
             <TextBlock Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" Text = "{Binding PathToFile}"></TextBlock>
-            <GroupBox Header="Opcje:"   Margin="10" >
+            <GroupBox Header="Options:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="0,0,10,0">Story 1</CheckBox>
-                    <CheckBox Margin="0,0,10,0">Story 2</CheckBox>
-                    <CheckBox >Story 3</CheckBox>
+                    <CheckBox Content="Story 1" Margin="0,0,10,0">
+                        <CheckBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.1</TextBlock>
+                                <TextBlock>
+                                 Generates a graph showing connections
+                                <LineBreak />
+                                 between source code files in the project.
+                                </TextBlock>
+                            </StackPanel>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
+                    <CheckBox Content="Story 2" Margin="0,0,10,0">
+                        <CheckBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.2</TextBlock>
+                                <TextBlock>
+                                 Generates a graph of relations between
+                                <LineBreak />
+                                 functions/methods in the given source code
+                                <LineBreak />
+                                 to analyze dependencies in the source code.
+                                </TextBlock>
+                            </StackPanel>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
+                    <CheckBox Content="Story 3" Margin="0,0,10,0">
+                        <CheckBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.3</TextBlock>
+                                <TextBlock>
+                                 Generates a graph of relationships between 
+                                <LineBreak />
+                                 logical modules in the source  code provided
+                                <LineBreak />
+                                 to analyze dependencies in the program.
+                                </TextBlock>
+                            </StackPanel>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
-            <Button Margin="0,0,8,0" Padding="4">Generuj graf</Button>
-            <Button Margin="0, 0, 8, 0" Padding="4">Wksportuj do .chujwieco</Button>
-            <Button Margin="0, 0, 8, 0" Padding="4">Anuluj</Button>
+            <Button Margin="0,0,8,0" Padding="4">Generate graph</Button>
+            <Button Margin="0, 0, 8, 0" Padding="4">Export to ...</Button>
+            <Button Margin="0, 0, 8, 0" Padding="4" Click="btnClose_Click">Close</Button>
         </StackPanel>
         <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4"  Margin="15"/>
     </Grid>
