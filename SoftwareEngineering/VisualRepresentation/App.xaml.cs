@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Msagl.Core.Routing;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.GraphViewerGdi;// .WpfGraphControl;
 
 namespace VisualRepresentation
 {
@@ -13,5 +17,7 @@ namespace VisualRepresentation
     /// </summary>
     public partial class App : Application
     {
+        
+
     }
 }

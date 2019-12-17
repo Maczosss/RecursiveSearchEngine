@@ -80,10 +80,14 @@
             </GroupBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
-            <Button Margin="0,0,8,0" Padding="4">Generate graph</Button>
+            <Button Margin="0,0,8,0" Padding="4" Click="btnGenerateGraph_Click">Generate graph</Button>
             <Button Margin="0, 0, 8, 0" Padding="4">Export to ...</Button>
             <Button Margin="0, 0, 8, 0" Padding="4" Click="btnClose_Click">Close</Button>
         </StackPanel>
-        <TextBox x:Name="graph" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4"  Margin="15"/>
+        <DockPanel LastChildFill="true" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4">
+            <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                              x:Name="graphCanvas"  Margin="15"/>
+        </DockPanel>
+
     </Grid>
 </Window>

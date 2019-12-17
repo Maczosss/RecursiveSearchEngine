@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using VisualRepresentation.ViewModels;
 using TextBox = System.Windows.Controls.TextBox;
+using Microsoft.Msagl.GraphViewerGdi;
+using Microsoft.Msagl.Drawing;
+using System.Windows.Forms.Integration;
 
 namespace VisualRepresentation
 {
@@ -23,11 +26,16 @@ namespace VisualRepresentation
         public MainViewModel mainWindowViewModel;
         public MainWindow()
         {
+
+            
             InitializeComponent();
             mainWindowViewModel = this.DataContext as MainViewModel;
 
         }
-
+        private void btnGenerateGraph_Click(object sender, RoutedEventArgs e)
+        {
+            WindowLoaded(sender, e);
+        }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -43,6 +51,37 @@ namespace VisualRepresentation
                 }
             }
         }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            //not needed, WindowsFormsHost is created in xaml:
+                // Create the interop host control.
+            //var host =new WindowsFormsHost();
+
+            //create a viewer object 
+            GViewer viewer = new GViewer();
+            //create a graph object 
+            var graph = new Graph("graph");
+
+            //create the graph content 
+            graph.AddEdge("A", "B");
+            graph.AddEdge("B", "C");
+            graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+            graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
+            graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
+            Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
+            c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
+            c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
+
+            //bind the graph to the viewer 
+            viewer.Graph = graph;
+            
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+
+            // Assign the MaskedTextBox control as the host control's child.
+            graphCanvas.Child = viewer;            
+        }
+
         #region Select all text after clicking textbox
         private void SelectAddress(object sender, RoutedEventArgs e)
         {
