@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\FilesPathsModels.cs" />
     <Compile Include="Models\GraphModels.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -110,9 +111,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DependenceFinder\DependenceFinder.csproj">
+    <ProjectReference Include="..\DependenceFinder\DependenceFinderAndPlotter.csproj">
       <Project>{e6fe49ef-e0b4-4877-bf6d-68d78ed2b072}</Project>
-      <Name>DependenceFinder</Name>
+      <Name>DependenceFinderAndPlotter</Name>
     </ProjectReference>
     <ProjectReference Include="..\MatchFinder\FilesFinder.csproj">
       <Project>{e82afe74-df06-4d6e-af80-1f39bf97ccb9}</Project>

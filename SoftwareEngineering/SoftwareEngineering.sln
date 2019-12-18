@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesFinder", "MatchFinder\FilesFinder.csproj", "{E82AFE74-DF06-4D6E-AF80-1F39BF97CCB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependenceFinder", "DependenceFinder\DependenceFinder.csproj", "{E6FE49EF-E0B4-4877-BF6D-68D78ED2B072}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependenceFinderAndPlotter", "DependenceFinder\DependenceFinderAndPlotter.csproj", "{E6FE49EF-E0B4-4877-BF6D-68D78ED2B072}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualRepresentation", "VisualRepresentation\VisualRepresentation.csproj", "{1913A290-338E-43AF-B285-2C331B8F1E65}"
 EndProject

@@ -1,12 +1,12 @@
-﻿using DependenceFinder.Finders;
-using DependenceFinder.Nodes;
+﻿using DependenceFinderAndPlotter.Finders;
+using DependenceFinderAndPlotter.Nodes;
 using FilesFinder;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DependenceFinder
+namespace DependenceFinderAndPlotter
 {
     class Program
     {

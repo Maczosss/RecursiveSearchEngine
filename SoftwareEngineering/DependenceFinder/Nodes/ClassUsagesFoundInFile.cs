@@ -1,4 +1,4 @@
-﻿namespace DependenceFinder.Nodes
+﻿namespace DependenceFinderAndPlotter.Nodes
 {
     class ClassUsagesFoundInFile
     {

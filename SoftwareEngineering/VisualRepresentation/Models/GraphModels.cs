@@ -11,12 +11,15 @@ namespace VisualRepresentation.Models
 {
     class GraphModels
     {
-        //Window appWindow;
-        //Grid mainGrid = new Grid();
-        //DockPanel graphViewerPanel = new DockPanel();
-        //ToolBar toolBar = new ToolBar();
-        //GraphViewer graphViewer = new GraphViewer();
-        //TextBox statusTextBox;
-      
+        //private Graph PlotUsingGraph()
+        //{
+
+        //}
+
+        //public Graph GetUsingGraph()
+        //{
+
+        //}
+
     }
 }

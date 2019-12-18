@@ -18,6 +18,7 @@ namespace FilesFinder
 
         public NetFilesFinder(string topMostDirectory)
         {
+            foundCsFiles = new List<string>();
             this.TopMostDirectory = topMostDirectory;
         }
 
@@ -53,7 +54,7 @@ namespace FilesFinder
 
         private void removeTestFolders()
         {
-            this.foundCsFiles = this.foundCsFiles.Where(e => e.Contains(@"\Test\")).ToList();
+            this.foundCsFiles = this.foundCsFiles.Where(e => e.Contains(@"\Tests\")).ToList();
         }
 
         public List<string> GetCsFiles()

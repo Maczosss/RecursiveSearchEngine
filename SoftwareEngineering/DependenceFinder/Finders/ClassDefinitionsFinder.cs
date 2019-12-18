@@ -1,10 +1,10 @@
-﻿using DependenceFinder.Nodes;
+﻿using DependenceFinderAndPlotter.Nodes;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace DependenceFinder.Finders
+namespace DependenceFinderAndPlotter.Finders
 {
     class ClassDefinitionsFinder
     {

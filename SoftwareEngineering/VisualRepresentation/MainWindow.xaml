@@ -29,14 +29,14 @@
             <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ChooseFolderToGraphClick"/>
             <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" 
                        PreviewMouseLeftButtonUp="ChooseFolderToGraphClick"
-                       Text = "{Binding PathToFile}" 
+                       Text = "{Binding PathToFolder}" 
                        PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
                        MouseDoubleClick="SelectAddress"  
                        GotKeyboardFocus="SelectAddress"
                   ToolTip="Folder containing C# project."/>
             <GroupBox Header="Opcje:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Story 1" Margin="0,0,10,0">
+                    <CheckBox IsChecked="{Binding Story1Checkbox}" Content="Story 1" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.1</TextBlock>
@@ -48,7 +48,7 @@
                             </StackPanel>
                         </CheckBox.ToolTip>
                     </CheckBox>
-                    <CheckBox Content="Story 2" Margin="0,0,10,0">
+                    <CheckBox Content="Story 2" IsChecked="{Binding Story2Checkbox}" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.2</TextBlock>
@@ -62,7 +62,7 @@
                             </StackPanel>
                         </CheckBox.ToolTip>
                     </CheckBox>
-                    <CheckBox Content="Story 3" Margin="0,0,10,0">
+                    <CheckBox Content="Story 3" IsChecked="{Binding Story3Checkbox}" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.3</TextBlock>

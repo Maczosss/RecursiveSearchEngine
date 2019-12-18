@@ -1,8 +1,8 @@
-﻿using DependenceFinder.Nodes;
+﻿using DependenceFinderAndPlotter.Nodes;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace DependenceFinder.Finders
+namespace DependenceFinderAndPlotter.Finders
 {
     class IncludeReferenceFinder
     {
@@ -28,3 +28,4 @@ namespace DependenceFinder.Finders
 
     }
 }
+
