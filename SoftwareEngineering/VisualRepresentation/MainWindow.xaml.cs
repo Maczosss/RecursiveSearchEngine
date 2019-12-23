@@ -40,8 +40,8 @@ namespace VisualRepresentation
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-        }
-    
+            viewer.BackwardButtonPressed();
+        }    
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             viewer.SaveButtonPressed();
@@ -83,7 +83,7 @@ namespace VisualRepresentation
             graphCanvas.Child = viewer;
 
             //Hide toolbar
-            viewer.ToolBarIsVisible = false;
+            //viewer.ToolBarIsVisible = false;
 
             //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
             viewer.PanButtonPressed = true;            
