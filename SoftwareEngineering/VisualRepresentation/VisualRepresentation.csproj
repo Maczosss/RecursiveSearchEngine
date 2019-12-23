@@ -120,5 +120,14 @@
       <Name>FilesFinder</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\export_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\close_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\generate_button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

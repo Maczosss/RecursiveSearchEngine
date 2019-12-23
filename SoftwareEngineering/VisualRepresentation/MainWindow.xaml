@@ -26,20 +26,20 @@
         
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-            <Button x:Name="browse" Content="Browse directory..."  Margin="10,15,0,10" Click="ChooseFolderToGraphClick"/>
+            <Image Source="http://files.softicons.com/download/application-icons/pretty-office-v-icons-by-custom-icon-design/ico/Folder-Add.ico" Width="40"/>
             <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" 
                        PreviewMouseLeftButtonUp="ChooseFolderToGraphClick"
                        Text = "{Binding PathToFolder}" 
                        PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
                        MouseDoubleClick="SelectAddress"  
                        GotKeyboardFocus="SelectAddress"
-                  ToolTip="Folder containing C# project."/>
+                  ToolTip="Folder containing C# project."/>   
             <GroupBox Header="Opcje:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding Story1Checkbox}" Content="Story 1" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.1</TextBlock>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Dependencies between files</TextBlock>
                                 <TextBlock>
                                  Generates a graph showing connections
                                 <LineBreak />
@@ -51,7 +51,7 @@
                     <CheckBox Content="Story 2" IsChecked="{Binding Story2Checkbox}" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.2</TextBlock>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Dependencies between methods/functions</TextBlock>
                                 <TextBlock>
                                  Generates a graph of relations between
                                 <LineBreak />
@@ -65,7 +65,7 @@
                     <CheckBox Content="Story 3" IsChecked="{Binding Story3Checkbox}" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Graph No.3</TextBlock>
+                                <TextBlock FontWeight="Bold" FontSize="13" Margin="0,0,0,5">Dependencies between modules</TextBlock>
                                 <TextBlock>
                                  Generates a graph of relationships between 
                                 <LineBreak />
@@ -80,9 +80,9 @@
             </GroupBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
-            <Button Margin="0,0,8,0" Padding="4" Click="btnGenerateGraph_Click">Generate graph</Button>
-            <Button Margin="0, 0, 8, 0" Padding="4">Export to ...</Button>
-            <Button Margin="0, 0, 8, 0" Padding="4" Click="btnClose_Click">Close</Button>
+            <Image Margin="0, 0, 8, 0" MouseDown="btnGenerateGraph_Click" Cursor="Hand" Source="Pictures/generate_button.png"/>
+            <Image Margin="0, 0, 8, 0" MouseDown="btnClose_Click" Cursor="Hand" Source="Pictures/export_button.png"/>
+            <Image Margin="0, 0, 8, 0" MouseDown="btnClose_Click" Cursor="Hand" Source="Pictures/close_button.png"/>
         </StackPanel>
         <DockPanel LastChildFill="true" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4">
             <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
