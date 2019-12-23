@@ -67,7 +67,10 @@ namespace VisualRepresentation
             //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
 
             // Assign the MaskedTextBox control as the host control's child.
-            graphCanvas.Child = viewer;            
+            graphCanvas.Child = viewer;
+
+            //Hide toolbar
+            //viewer.ToolBarIsVisible = false;
         }
 
         #region Select all text after clicking textbox

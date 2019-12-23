@@ -26,14 +26,17 @@
         
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-            <Image Source="http://files.softicons.com/download/application-icons/pretty-office-v-icons-by-custom-icon-design/ico/Folder-Add.ico" Width="40"/>
+            <Image Width="40"
+                   ToolTip="Folder containing C# project"
+                   MouseDown="ChooseFolderToGraphClick"
+                   Cursor="Hand"
+                   Source="http://files.softicons.com/download/application-icons/pretty-office-v-icons-by-custom-icon-design/ico/Folder-Add.ico"/>
             <TextBox Margin="10,15,0,10" Padding="0, 8, 0, 0" MinWidth="400" 
-                       PreviewMouseLeftButtonUp="ChooseFolderToGraphClick"
-                       Text = "{Binding PathToFolder}" 
-                       PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
-                       MouseDoubleClick="SelectAddress"  
-                       GotKeyboardFocus="SelectAddress"
-                  ToolTip="Folder containing C# project."/>   
+                     PreviewMouseLeftButtonUp="ChooseFolderToGraphClick"
+                     Text = "{Binding PathToFolder}" 
+                     PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
+                     MouseDoubleClick="SelectAddress"  
+                     GotKeyboardFocus="SelectAddress"/>
             <GroupBox Header="Opcje:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding Story1Checkbox}" Content="Story 1" Margin="0,0,10,0">
@@ -80,14 +83,25 @@
             </GroupBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
-            <Image Margin="0, 0, 8, 0" MouseDown="btnGenerateGraph_Click" Cursor="Hand" Source="Pictures/generate_button.png"/>
-            <Image Margin="0, 0, 8, 0" MouseDown="btnClose_Click" Cursor="Hand" Source="Pictures/export_button.png"/>
-            <Image Margin="0, 0, 8, 0" MouseDown="btnClose_Click" Cursor="Hand" Source="Pictures/close_button.png"/>
+            <Image Margin="0, 0, 8, 0"
+                   ToolTip="Generates graph"
+                   MouseDown="btnGenerateGraph_Click"
+                   Cursor="Hand"
+                   Source="Pictures/generate_button.png"/>
+            <Image Margin="0, 0, 8, 0"
+                   ToolTip="Saves the graph to local disk"
+                   MouseDown="btnClose_Click"
+                   Cursor="Hand"
+                   Source="Pictures/export_button.png"/>
+            <Image Margin="0, 0, 8, 0"
+                   ToolTip="Closes application"
+                   MouseDown="btnClose_Click"
+                   Cursor="Hand"
+                   Source="Pictures/close_button.png"/>
         </StackPanel>
         <DockPanel LastChildFill="true" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4">
             <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
                               x:Name="graphCanvas"  Margin="15"/>
         </DockPanel>
-
     </Grid>
 </Window>
