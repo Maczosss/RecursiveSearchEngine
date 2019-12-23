@@ -13,6 +13,9 @@ namespace VisualRepresentation
     public partial class MainWindow : Window
     {
         public MainViewModel mainWindowViewModel;
+        //create a viewer object 
+        GViewer viewer = new GViewer();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,10 +30,24 @@ namespace VisualRepresentation
         {
             Close();
         }
-        
+        private void btnZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            viewer.ZoomInPressed();
+        }
+        private void btnZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            viewer.ZoomOutPressed();
+        }
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+        }
+    
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            viewer.SaveButtonPressed();
+        }
         void ChooseFolderToGraphClick(object sender, RoutedEventArgs e)
         {
-
             using (var dialog = new FolderBrowserDialog())
             {
                 if (dialog.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK)
@@ -40,14 +57,10 @@ namespace VisualRepresentation
             }
             FilesPathsModels filesPathModel = new FilesPathsModels(mainWindowViewModel.PathToFolder);
             mainWindowViewModel.FoundCsFiles = filesPathModel.GetFiles();
-
         }
 
         private void GenerateGraph(object sender, RoutedEventArgs e)
         {
-
-            //create a viewer object 
-            GViewer viewer = new GViewer();
             //create a graph object 
             var graph = new Graph("graph");
             
@@ -70,9 +83,10 @@ namespace VisualRepresentation
             graphCanvas.Child = viewer;
 
             //Hide toolbar
-            //viewer.ToolBarIsVisible = false;
+            viewer.ToolBarIsVisible = false;
 
-            viewer.PanButtonPressed = true;
+            //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
+            viewer.PanButtonPressed = true;            
         }
 
         #region Select all text after clicking textbox
@@ -102,6 +116,7 @@ namespace VisualRepresentation
         {
 
         }
+
     }
     public static class WinFormsCompatibility
     {

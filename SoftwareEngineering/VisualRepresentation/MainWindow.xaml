@@ -84,17 +84,17 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1" Grid.Row ="3" >
             <Image Margin="15, 0, 0, 0"
                    ToolTip="Zoom in"
-                   MouseDown="btnClose_Click"
+                   MouseDown="btnZoomIn_Click"
                    Cursor="Hand"
                    Source="Pictures/zoom_in_button.png"/>
             <Image Margin="8, 0, 0, 0"
                    ToolTip="Zoom out"
-                   MouseDown="btnClose_Click"
+                   MouseDown="btnZoomOut_Click"
                    Cursor="Hand"
                    Source="Pictures/zoom_out_button.png"/>
             <Image Margin="8, 0, 0, 0"
                    ToolTip="Primary view"
-                   MouseDown="btnClose_Click"
+                   MouseDown="btnHome_Click"
                    Cursor="Hand"
                    Source="Pictures/home_button.png"/>
         </StackPanel>
@@ -106,7 +106,7 @@
                    Source="Pictures/generate_button.png"/>
             <Image Margin="0, 0, 8, 0"
                    ToolTip="Saves the graph to local disk"
-                   MouseDown="btnClose_Click"
+                   MouseDown="btnSave_Click"
                    Cursor="Hand"
                    Source="Pictures/export_button.png"/>
             <Image Margin="0, 0, 8, 0"
