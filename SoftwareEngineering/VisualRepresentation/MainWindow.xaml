@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:VisualRepresentation"
         xmlns:VM="clr-namespace:VisualRepresentation.ViewModels"
         mc:Ignorable="d"
+        Icon="Pictures/title_bar_logo.ico"
         Title="Software Engineering" Height="450" Width="800">
     <Window.DataContext>
         <VM:MainViewModel/>
@@ -23,8 +24,6 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
-        
-
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
             <Image Width="40"
                    ToolTip="Folder containing C# project"
@@ -37,7 +36,7 @@
                      PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"
                      MouseDoubleClick="SelectAddress"  
                      GotKeyboardFocus="SelectAddress"/>
-            <GroupBox Header="Opcje:"   Margin="10" >
+            <GroupBox Header="Options:"   Margin="10" >
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding Story1Checkbox}" Content="Story 1" Margin="0,0,10,0">
                         <CheckBox.ToolTip>
@@ -82,6 +81,23 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1" Grid.Row ="3" >
+            <Image Margin="15, 0, 0, 0"
+                   ToolTip="Zoom in"
+                   MouseDown="btnClose_Click"
+                   Cursor="Hand"
+                   Source="Pictures/zoom_in_button.png"/>
+            <Image Margin="8, 0, 0, 0"
+                   ToolTip="Zoom out"
+                   MouseDown="btnClose_Click"
+                   Cursor="Hand"
+                   Source="Pictures/zoom_out_button.png"/>
+            <Image Margin="8, 0, 0, 0"
+                   ToolTip="Primary view"
+                   MouseDown="btnClose_Click"
+                   Cursor="Hand"
+                   Source="Pictures/home_button.png"/>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row ="3" >
             <Image Margin="0, 0, 8, 0"
                    ToolTip="Generates graph"
@@ -100,8 +116,10 @@
                    Source="Pictures/close_button.png"/>
         </StackPanel>
         <DockPanel LastChildFill="true" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4">
-            <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                              x:Name="graphCanvas"  Margin="15"/>
+            <Border Margin="15" BorderThickness="1" BorderBrush="Black">
+                <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                              x:Name="graphCanvas"  Margin="15" ChildChanged="GraphCanvas_ChildChanged"/>
+            </Border>
         </DockPanel>
     </Grid>
 </Window>

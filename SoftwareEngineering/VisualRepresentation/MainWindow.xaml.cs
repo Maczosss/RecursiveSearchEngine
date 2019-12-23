@@ -70,7 +70,9 @@ namespace VisualRepresentation
             graphCanvas.Child = viewer;
 
             //Hide toolbar
-            //viewer.ToolBarIsVisible = false;
+            viewer.ToolBarIsVisible = false;
+
+            viewer.PanButtonPressed = true;
         }
 
         #region Select all text after clicking textbox
@@ -95,6 +97,11 @@ namespace VisualRepresentation
             }
         }
         #endregion
+
+        private void GraphCanvas_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        {
+
+        }
     }
     public static class WinFormsCompatibility
     {

@@ -129,5 +129,17 @@
   <ItemGroup>
     <Resource Include="Pictures\generate_button.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\zoom_in_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\title_bar_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\zoom_out_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\home_button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
