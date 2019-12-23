@@ -1,13 +1,9 @@
 ﻿using FilesFinder;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VisualRepresentation.Models
 {
-     class FilesPathsModels
+    class FilesPathsModels
     {
         public string PathToFolder { get; set; }
 
@@ -19,15 +15,8 @@ namespace VisualRepresentation.Models
         {
             var finder = new NetFilesFinder(PathToFolder);
             List<string> result = new List<string>();
-            if (finder.HasFolderAnyCsFiles()) 
-            {
-                result.AddRange(finder.FindCsFiles());
-            } else 
-            {
-                result.Add("Selected folder contains no *.cs files.");
-            }
+            result = finder.GetCsFilesFromFolder();
             return result;
         }
-        
     }
 }

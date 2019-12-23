@@ -14,18 +14,18 @@ namespace VisualRepresentation
     {
         public MainViewModel mainWindowViewModel;
         //create a viewer object 
-        GViewer viewer = new GViewer();
+        public GViewer viewer { get; set; }
+        //changed to property, initialized only on construction and 'stays alive' througout timespan of application.
+        //GViewer viewer = new GViewer();
 
         public MainWindow()
         {
             InitializeComponent();
+            viewer = new GViewer();
             mainWindowViewModel = this.DataContext as MainViewModel;
 
         }
-        private void btnGenerateGraph_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateGraph(sender, e);
-        }
+       
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -74,19 +74,22 @@ namespace VisualRepresentation
             c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
             c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
             graph.AddNode("X");
+            graph.AddNode("X");
+            var nonNode = graph.FindNode("Dupeczka");
             //bind the graph to the viewer 
             viewer.Graph = graph;
             
+            
             //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            // Assign the MaskedTextBox control as the host control's child.
+            // Assign the control as the host control's child.
             graphCanvas.Child = viewer;
 
             //Hide toolbar
             //viewer.ToolBarIsVisible = false;
 
             //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
-            viewer.PanButtonPressed = true;            
+            //viewer.PanButtonPressed = true;            
         }
 
         #region Select all text after clicking textbox
@@ -117,6 +120,19 @@ namespace VisualRepresentation
 
         }
 
+        private void btnGenerateGraph_Click(object sender, MouseButtonEventArgs e)
+        {
+            //GenerateGraph(sender, e);
+            var graphModels = new GraphModels();
+            var graph = graphModels.GenerateGraph(true, true, true, mainWindowViewModel.FoundCsFiles);
+            viewer.Graph = graph;
+            graphCanvas.Child = viewer;
+            //no action if FoundFIles is empty or invalid
+            //var graph = GenerateGraph(bool story1, bool story2, bool story3, VMFoundFiles)
+
+            //viewer.Graph = graph;
+            //graphCanvas.Child = viewer;
+        }
     }
     public static class WinFormsCompatibility
     {

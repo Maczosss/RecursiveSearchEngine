@@ -118,7 +118,7 @@
         <DockPanel LastChildFill="true" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4">
             <Border Margin="15" BorderThickness="1" BorderBrush="Black">
                 <WindowsFormsHost DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                              x:Name="graphCanvas" ChildChanged="GraphCanvas_ChildChanged"/>
+                                  x:Name="graphCanvas" ChildChanged="GraphCanvas_ChildChanged"/>
             </Border>
         </DockPanel>
     </Grid>

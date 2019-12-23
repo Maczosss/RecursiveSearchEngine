@@ -8,7 +8,7 @@ namespace FilesFinder
     {
         //TODO: Add strategies for different types of languages. i.e. ex. .net, Java.
 
-        public string TopMostDirectory { get; set; } = @"D:\Repositories\RecursiveSearchEngine";
+        public string TopMostDirectory { get; set; }
         private List<string> foundCsFiles { get; set; }
 
         public NetFilesFinder()
@@ -26,14 +26,25 @@ namespace FilesFinder
         /// Finds files with proper extension recursively, searching downward from provided location.
         /// </summary>
         /// <returns></returns>
-        public List<string> FindCsFiles()
+        public List<string> GetCsFilesFromFolder()
         {
             foundCsFiles.Clear();
             List<string> result = new List<string>();
             result.AddRange(Directory.GetFiles(TopMostDirectory, "*.cs", SearchOption.AllDirectories));
             foundCsFiles.AddRange(result);
-            removeTestFolders();
-            return result;
+
+            //removeTestFolders();
+
+            if (HasFolderAnyCsFiles())
+            {
+                return foundCsFiles;
+            }
+            else
+            {
+                List<string> emptyResult = new List<string>();
+                emptyResult.Add("Folder contains no .cs files. \nChoose different folder");
+                return emptyResult;
+            }
         }
 
         public List<string> FindCsProjFiles()
@@ -46,30 +57,14 @@ namespace FilesFinder
 
         public bool HasFolderAnyCsFiles()
         {
-            FindCsFiles();
-            removeTestFolders();
             var result = this.foundCsFiles.Any() ? true : false;
             return result;
         }
 
-        private void removeTestFolders()
-        {
-            this.foundCsFiles = this.foundCsFiles.Where(e => e.Contains(@"\Tests\")).ToList();
-        }
-
-        public List<string> GetCsFiles()
-        {
-            if (HasFolderAnyCsFiles())
-            {
-                return foundCsFiles;
-            }
-            else
-            {
-                List<string> emptyResult = new List<string>();
-                emptyResult.Add("Folder contains no .cs files. \nChoose different folder");
-                return emptyResult;
-            }
-        }
+        //private void removeTestFolders()
+        //{
+        //    this.foundCsFiles = this.foundCsFiles.Where(e => e.Contains(@"\Tests\")).ToList();
+        //}
     }
 
     public enum ProjectType

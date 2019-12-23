@@ -124,7 +124,6 @@
     <Compile Include="Finders\MethodDeclarationsFinder.cs" />
     <Compile Include="Finders\MethodInvocationsFinder.cs" />
     <Compile Include="Finders\MethodNestedInvocationsFinder.cs" />
-    <Compile Include="Finders\NetSemanticModelGetter.cs" />
     <Compile Include="Nodes\ClassesDefinedInFile.cs" />
     <Compile Include="Nodes\ClassUsagesFoundInFile.cs" />
     <Compile Include="Finders\ClassDefinitionsFinder.cs" />
