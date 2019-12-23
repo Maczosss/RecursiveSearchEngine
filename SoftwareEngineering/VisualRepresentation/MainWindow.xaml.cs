@@ -70,7 +70,7 @@ namespace VisualRepresentation
             graphCanvas.Child = viewer;
 
             //Hide toolbar
-            viewer.ToolBarIsVisible = false;
+            //viewer.ToolBarIsVisible = false;
 
             viewer.PanButtonPressed = true;
         }
