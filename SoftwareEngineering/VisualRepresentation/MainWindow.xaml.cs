@@ -13,15 +13,16 @@ namespace VisualRepresentation
     public partial class MainWindow : Window
     {
         public MainViewModel mainWindowViewModel;
-        //create a viewer object 
-        public GViewer viewer { get; set; }
+        
+        public GViewer Viewer { get; set; }
         //changed to property, initialized only on construction and 'stays alive' througout timespan of application.
         //GViewer viewer = new GViewer();
+        public FilesPathsModels PathModel { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            viewer = new GViewer();
+            Viewer = new GViewer();
             mainWindowViewModel = this.DataContext as MainViewModel;
 
         }
@@ -30,23 +31,28 @@ namespace VisualRepresentation
         {
             Close();
         }
+
         private void btnZoomIn_Click(object sender, RoutedEventArgs e)
         {
-            viewer.ZoomInPressed();
+            Viewer.ZoomInPressed();
         }
+
         private void btnZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            viewer.ZoomOutPressed();
+            Viewer.ZoomOutPressed();
         }
+
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            viewer.BackwardButtonPressed();
+            Viewer.BackwardButtonPressed();
         }    
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            viewer.SaveButtonPressed();
+            Viewer.SaveButtonPressed();
         }
-        void ChooseFolderToGraphClick(object sender, RoutedEventArgs e)
+
+        private void ChooseFolderToGraphClick(object sender, RoutedEventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
             {
@@ -55,41 +61,41 @@ namespace VisualRepresentation
                     mainWindowViewModel.PathToFolder = dialog.SelectedPath;
                 }
             }
-            FilesPathsModels filesPathModel = new FilesPathsModels(mainWindowViewModel.PathToFolder);
-            mainWindowViewModel.FoundCsFiles = filesPathModel.GetFiles();
+            
+            this.PathModel = new FilesPathsModels(mainWindowViewModel.PathToFolder);
+            mainWindowViewModel.FoundCsFiles = PathModel.GetFiles();
+            
         }
 
-        private void GenerateGraph(object sender, RoutedEventArgs e)
+        private void btnGenerateGraph_Click(object sender, MouseButtonEventArgs e)
         {
-            //create a graph object 
-            var graph = new Graph("graph");
-            
-            //create the graph content 
-            graph.AddEdge("A", "B");
-            graph.AddEdge("B", "C");
-            graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-            graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
-            graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
-            Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
-            c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
-            c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
-            graph.AddNode("X");
-            graph.AddNode("X");
-            var nonNode = graph.FindNode("Dupeczka");
-            //bind the graph to the viewer 
-            viewer.Graph = graph;
-            
-            
-            //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            if (this.PathModel.HasFolderAnyCsFiles())
+            {
+                var graphModels = new GraphModels();
+                var graph = graphModels.GenerateGraph(true, true, true, mainWindowViewModel.FoundCsFiles);
+                Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
+                Viewer.Graph = graph;
+                //TODO: GenerateGRaph() returns viewer and replaces prop Viewer. Move "CurrentLaoytMethod" to bour buttons or even better: dropdawn list. 
+                Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
+                graphCanvas.Child = Viewer;
+                
+                //Hide toolbar
+                //viewer.ToolBarIsVisible = false;
 
-            // Assign the control as the host control's child.
-            graphCanvas.Child = viewer;
-
-            //Hide toolbar
-            //viewer.ToolBarIsVisible = false;
-
-            //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
-            //viewer.PanButtonPressed = true;            
+                //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
+                //viewer.PanButtonPressed = true; 
+            }
+            else
+            {
+                MessageBoxResult result = System.Windows.MessageBox.Show("Selected folder contains no *.cs files.\n Do You want to choose different folder?",
+                                          "Invalid Folder",
+                                          MessageBoxButton.OKCancel,
+                                          MessageBoxImage.Warning);
+                if (result == MessageBoxResult.OK)
+                {
+                    this.ChooseFolderToGraphClick(sender, e);
+                }
+            }       
         }
 
         #region Select all text after clicking textbox
@@ -118,20 +124,6 @@ namespace VisualRepresentation
         private void GraphCanvas_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
 
-        }
-
-        private void btnGenerateGraph_Click(object sender, MouseButtonEventArgs e)
-        {
-            //GenerateGraph(sender, e);
-            var graphModels = new GraphModels();
-            var graph = graphModels.GenerateGraph(true, true, true, mainWindowViewModel.FoundCsFiles);
-            viewer.Graph = graph;
-            graphCanvas.Child = viewer;
-            //no action if FoundFIles is empty or invalid
-            //var graph = GenerateGraph(bool story1, bool story2, bool story3, VMFoundFiles)
-
-            //viewer.Graph = graph;
-            //graphCanvas.Child = viewer;
         }
     }
     public static class WinFormsCompatibility

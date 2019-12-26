@@ -6,8 +6,6 @@ namespace FilesFinder
 {
     public class NetFilesFinder
     {
-        //TODO: Add strategies for different types of languages. i.e. ex. .net, Java.
-
         public string TopMostDirectory { get; set; }
         private List<string> foundCsFiles { get; set; }
 
@@ -35,7 +33,7 @@ namespace FilesFinder
 
             //removeTestFolders();
 
-            if (HasFolderAnyCsFiles())
+            if (true)
             {
                 return foundCsFiles;
             }
@@ -47,29 +45,20 @@ namespace FilesFinder
             }
         }
 
-        public List<string> FindCsProjFiles()
-        {
-            List<string> result = new List<string>();
-            result.AddRange(Directory.GetFiles(TopMostDirectory, "*.csproj", SearchOption.AllDirectories));
-            this.foundCsFiles = result;
-            return result;
-        }
-
-        public bool HasFolderAnyCsFiles()
-        {
-            var result = this.foundCsFiles.Any() ? true : false;
-            return result;
-        }
-
-        //private void removeTestFolders()
+        //public List<string> FindCsProjFiles()
         //{
-        //    this.foundCsFiles = this.foundCsFiles.Where(e => e.Contains(@"\Tests\")).ToList();
+        //    List<string> result = new List<string>();
+        //    result.AddRange(Directory.GetFiles(TopMostDirectory, "*.csproj", SearchOption.AllDirectories));
+        //    this.foundCsFiles = result;
+        //    return result;
+        //}
+
+        //public bool HasFolderAnyCsFiles()
+        //{
+        //    var result = this.foundCsFiles.Any() ? true : false;
+        //    return result;
         //}
     }
 
-    public enum ProjectType
-    {
-        DotNet = 1,
-        Java = 2,
-    }
+   
 }

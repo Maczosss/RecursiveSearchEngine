@@ -12,9 +12,9 @@ namespace DependenceFinderAndPlotter
     {
         static void Main(string[] args)
         {
+
             NetFilesFinder netFilesFinder = new NetFilesFinder(@"D:\Repositories\RecursiveSearchEngine");
             var foundCsFiles = netFilesFinder.GetCsFilesFromFolder();
-            var hasany = netFilesFinder.HasFolderAnyCsFiles();
 
             //NetClassDefinitionsFinder netClassesFinder = new NetClassDefinitionsFinder(foundNetFiles);
             //var foundClassesDefinitionsInFiles = netClassesFinder.findClassDefinitions();

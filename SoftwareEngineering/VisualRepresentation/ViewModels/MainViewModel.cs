@@ -21,7 +21,16 @@ namespace VisualRepresentation.ViewModels
             }
         }
 
-
+        private bool _hasFolderProperFiles = false;
+        public bool HasFolderProperFiles
+        {
+            get => _hasFolderProperFiles;
+            set
+            {
+                _hasFolderProperFiles = value;
+                OnPropertyChanged("HasFolderProperFiles");
+            }
+        }
 
         private string _pathToFolder = "Choose folder with files to graph...";
         public string PathToFolder
