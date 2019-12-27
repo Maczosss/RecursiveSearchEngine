@@ -131,7 +131,7 @@
     <Compile Include="Nodes\IncludedCompileCsFiles.cs" />
     <Compile Include="Nodes\IncludedReferencesInCsProj.cs" />
     <Compile Include="Nodes\MethodDeclarationsInFile.cs" />
-    <Compile Include="Nodes\MethodInvocationsInFile.cs" />
+    <Compile Include="Nodes\MethodInvocationsInDeclaration.cs" />
     <Compile Include="Plotters\UsingDependencePlotter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

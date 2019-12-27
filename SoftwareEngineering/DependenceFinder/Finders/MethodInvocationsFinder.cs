@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DependenceFinderAndPlotter.Finders
 {
-    class MethodInvocationsFinder
+    public class MethodInvocationsFinder
     {
         public List<InvocationExpressionSyntax> GetMethodsInvocationsInFIle(string csFilePath)
         {
@@ -22,6 +22,14 @@ namespace DependenceFinderAndPlotter.Finders
             {
                 result.Add(invocation);
             }
+            return result;
+        }
+
+        public List<InvocationExpressionSyntax> GetMethodsInvocationsInAncestorDeclaration(MethodDeclarationSyntax ancestor)
+        {
+            var result = new List<InvocationExpressionSyntax>();
+            var descendantInvocation = ancestor.DescendantNodes().OfType<InvocationExpressionSyntax>();
+            result.AddRange(descendantInvocation);
             return result;
         }
     }

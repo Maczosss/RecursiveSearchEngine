@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace DependenceFinderAndPlotter.Nodes
 {
-    class MethodInvocationsInFile
+    public class MethodInvocationsInDeclaration
     {
         public List<InvocationExpressionSyntax> MethodInvocations { get; set; }
-        public string InFile { get; set; }
+        public MethodDeclarationSyntax InDeclaration { get; set; }
 
-        public MethodInvocationsInFile()
+        public MethodInvocationsInDeclaration()
         {
             this.MethodInvocations = new List<InvocationExpressionSyntax>();
         }

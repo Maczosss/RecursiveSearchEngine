@@ -72,6 +72,7 @@ namespace VisualRepresentation
             if (this.PathModel.HasFolderAnyCsFiles())
             {
                 var graphModels = new GraphModels();
+                
                 var graph = graphModels.GenerateGraph(true, true, true, mainWindowViewModel.FoundCsFiles);
                 Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
                 Viewer.Graph = graph;

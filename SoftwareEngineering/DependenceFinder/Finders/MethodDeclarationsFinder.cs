@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DependenceFinderAndPlotter.Finders
 {
-    class MethodDeclarationsFinder
+    public class MethodDeclarationsFinder
     {
         public MethodDeclarationsFinder()
         {

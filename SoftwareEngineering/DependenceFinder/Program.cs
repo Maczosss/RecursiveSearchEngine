@@ -26,7 +26,7 @@ namespace DependenceFinderAndPlotter
             var methodInvocationsFinder = new MethodInvocationsFinder();
 
             var declarationsInFilesResult = new List<MethodDeclarationsInFile>();
-            var invocationsInFilesResult = new List<MethodInvocationsInFile>();
+            var invocationsInFilesResult = new List<MethodInvocationsInDeclaration>();
             var usingsInFilesResult = new List<UsingDirectivesInFile>();
 
             
@@ -46,12 +46,12 @@ namespace DependenceFinderAndPlotter
                 };
                 declarationsInFilesResult.Add(singleFileDeclarations);
 
-                var singleFileInvocations = new MethodInvocationsInFile()
-                {
-                    InFile = path,
-                    MethodInvocations = methodInvocationsFinder.GetMethodsInvocationsInFIle(path)
-                };
-                invocationsInFilesResult.Add(singleFileInvocations);
+                //var singleFileInvocations = new MethodInvocationsInDeclaration()
+                //{
+                //    InFile = path,
+                //    MethodInvocations = methodInvocationsFinder.GetMethodsInvocationsInFIle(path)
+                //};
+                //invocationsInFilesResult.Add(singleFileInvocations);
 
             }
             foreach (var declarations in declarationsInFilesResult)
