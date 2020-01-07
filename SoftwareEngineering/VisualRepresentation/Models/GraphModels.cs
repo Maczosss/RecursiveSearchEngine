@@ -30,7 +30,7 @@ namespace VisualRepresentation.Models
             }
 
             List<MethodInvocationsInDeclaration> InvocationsInDeclarations = new List<MethodInvocationsInDeclaration>();
-            List<InvocationExpressionSyntax> 
+            //List<InvocationExpressionSyntax> 
             var invocationFinder = new MethodInvocationsFinder();
             foreach (var declaration in declarationsInFiles)
             {
