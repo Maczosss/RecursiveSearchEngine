@@ -4,6 +4,7 @@ using DependenceFinderAndPlotter.Nodes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Msagl.Drawing;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 
@@ -14,8 +15,8 @@ namespace VisualRepresentation.Models
         public Graph GenerateGraph(bool story1, bool story2, bool story3, List<string> VMFoundFiles)
         {
             var story1Graph = generateStory1Graph(VMFoundFiles);
-            var story2Graph = generateStory2Graph(VMFoundFiles, true);
-            return story2Graph;
+            //var story2Graph = generateStory2Graph(VMFoundFiles, true);
+            return story1Graph;
         }
       
         private Graph generateStory2Graph(List<string> VMFoundFiles, bool ignoreUnknownDeclaration)
@@ -30,7 +31,6 @@ namespace VisualRepresentation.Models
             }
 
             List<MethodInvocationsInDeclaration> InvocationsInDeclarations = new List<MethodInvocationsInDeclaration>();
-            List<InvocationExpressionSyntax> 
             var invocationFinder = new MethodInvocationsFinder();
             foreach (var declaration in declarationsInFiles)
             {
@@ -84,6 +84,7 @@ namespace VisualRepresentation.Models
         #region Usings graph
         private Graph generateStory1Graph(List<string> VMFoundFiles)
         {
+            //TODO: add other cases than usings: partial classes, interfaces, inheritance
             Graph resultGraph = new Graph("UsingsGraph");
             var usingsInFilesResult = new List<UsingDirectivesInFile>();
             var usingDirectiveFinder = new UsingDirectiveFinder();
@@ -92,25 +93,36 @@ namespace VisualRepresentation.Models
                 var singleFileUsings = new UsingDirectivesInFile()
                 {
                     InFile = this.splitPath(path),
-                    UsingDirectives = usingDirectiveFinder.GetUsingDirecitvesInFileRoslyn(path)
+                    UsingDirectives = usingDirectiveFinder.GetUsingDirecitvesInFileRoslyn(path),
+                    fileSize = getFileSize(path)
                 };
                 usingsInFilesResult.Add(singleFileUsings);
             }
 
             foreach (var usingNode in usingsInFilesResult)
             {
-                resultGraph.AddNode(usingNode.InFile).Attr.FillColor = Color.AliceBlue;
-                resultGraph.FindNode(usingNode.InFile).Attr.Shape = Shape.Diamond;
+                string fileNodeName = usingNode.InFile + "\n" + usingNode.fileSize;
+                var fileNode = resultGraph.AddNode(fileNodeName);
+                fileNode.Attr.FillColor = Color.AliceBlue;
+                fileNode.Attr.Shape = Shape.Diamond;
+                //var fileNode = resultGraph.FindNode(usingNode.InFile);
+
+
                 foreach (var usingInFile in usingNode.UsingDirectives)
                 {
-                    var node = resultGraph.FindNode(usingInFile.Name.ToString());
+                    string usingInFileNodeName = usingInFile.Name.ToString();
+                    var node = resultGraph.FindNode(usingInFileNodeName);
                     if (node is null)
                     {
-                        resultGraph.AddNode(usingInFile.Name.ToString());
+                        resultGraph.AddNode(usingInFileNodeName);
                         
                     }
-                    var createdNode = resultGraph.FindNode(usingInFile.Name.ToString());
-                    resultGraph.AddEdge(usingNode.InFile, usingInFile.Name.ToString());
+                    var createdNode = resultGraph.FindNode(usingInFileNodeName);
+                    var usingInFileEdge = resultGraph.AddEdge(fileNodeName, usingInFileNodeName);
+                    
+
+                    var thatUsingCount = usingNode.UsingDirectives.Where(e => e.Name == usingInFile.Name).Count();
+                    usingInFileEdge.LabelText = thatUsingCount.ToString();
                 }
             }
             resultGraph.LayoutAlgorithmSettings.NodeSeparation = 10;
@@ -118,6 +130,23 @@ namespace VisualRepresentation.Models
             return resultGraph;
         }
         #endregion
+
+        private string getFileSize(string path)
+        {
+            var lines = 0;
+            var characters = File.ReadAllLines(path).Sum(s => s.Length);
+            using (var reader = File.OpenText(path))
+            {
+                while (reader.ReadLine() != null)
+                {
+                    lines++;
+                }
+            }
+
+            string result = $"{lines.ToString()}\n({characters.ToString()})";
+            return result;
+        }
+        
 
         private string splitPath(string pathToSplit)
         {

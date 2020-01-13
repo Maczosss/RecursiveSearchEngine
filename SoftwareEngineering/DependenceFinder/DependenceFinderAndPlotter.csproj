@@ -128,8 +128,6 @@
     <Compile Include="Nodes\ClassUsagesFoundInFile.cs" />
     <Compile Include="Finders\ClassDefinitionsFinder.cs" />
     <Compile Include="Finders\UsingDirectiveFinder.cs" />
-    <Compile Include="Nodes\IncludedCompileCsFiles.cs" />
-    <Compile Include="Nodes\IncludedReferencesInCsProj.cs" />
     <Compile Include="Nodes\MethodDeclarationsInFile.cs" />
     <Compile Include="Nodes\MethodInvocationsInDeclaration.cs" />
     <Compile Include="Plotters\UsingDependencePlotter.cs" />
