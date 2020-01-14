@@ -14,9 +14,9 @@ namespace VisualRepresentation.Models
     {
         public Graph GenerateGraph(bool story1, bool story2, bool story3, List<string> VMFoundFiles)
         {
-            var story1Graph = generateStory1Graph(VMFoundFiles);
-            //var story2Graph = generateStory2Graph(VMFoundFiles, true);
-            return story1Graph;
+            //var story1Graph = generateStory1Graph(VMFoundFiles);
+            var story2Graph = generateStory2Graph(VMFoundFiles, true);
+            return story2Graph;
         }
       
         private Graph generateStory2Graph(List<string> VMFoundFiles, bool ignoreUnknownDeclaration)
@@ -24,21 +24,24 @@ namespace VisualRepresentation.Models
             Graph resultGraph = new Graph("MethodsGraph");
             var declarationFinder = new MethodDeclarationsFinder();
             var declarationsInFiles = new List<MethodDeclarationSyntax>();
+            
             foreach (var path in VMFoundFiles)
             {
                 var foundDeclarations = declarationFinder.GetMethodsDecalarationsInFIle(path);
                 declarationsInFiles.AddRange(foundDeclarations);
             }
 
+            var knownDeclarationsNames = declarationsInFiles.Select(e => e.Identifier.Text).ToList();
+
             List<MethodInvocationsInDeclaration> InvocationsInDeclarations = new List<MethodInvocationsInDeclaration>();
             var invocationFinder = new MethodInvocationsFinder();
+            
             foreach (var declaration in declarationsInFiles)
             {
-                var invocationsInDeclaration = invocationFinder.GetMethodsInvocationsInAncestorDeclaration(declaration);
+                List<string> resultInvocations = new List<string>();
+                var invocationsInDeclaration = invocationFinder.GetMethodsInvocationsDeclaration(declaration);
                 if (ignoreUnknownDeclaration)
                 {
-                    var knownDeclarationsNames = declarationsInFiles.Select(e => e.Identifier.Text).ToList();
-
                     foreach (var invocation in invocationsInDeclaration)
                     {
                         var expr = invocation.Expression;
@@ -46,9 +49,9 @@ namespace VisualRepresentation.Models
                         {
                             IdentifierNameSyntax identifierName = expr as IdentifierNameSyntax;
                             // identifierName is your method name
-                            if (!knownDeclarationsNames.Contains(identifierName.Identifier.Text))
+                            if (knownDeclarationsNames.Contains(identifierName.Identifier.Text))
                             {
-                                invocationsInDeclaration.Remove(invocation);
+                                resultInvocations.Add(identifierName.Identifier.Text);
                             }
 
                         }
@@ -57,9 +60,9 @@ namespace VisualRepresentation.Models
                         {
                             MemberAccessExpressionSyntax memberAccessExpressionSyntax = expr as MemberAccessExpressionSyntax;
                             //memberAccessExpressionSyntax.Name is your method name
-                            if (!knownDeclarationsNames.Contains(memberAccessExpressionSyntax.Name.Identifier.Text))
+                            if (knownDeclarationsNames.Contains(memberAccessExpressionSyntax.Name.Identifier.Text))
                             {
-                                invocationsInDeclaration.Remove(invocation);
+                                resultInvocations.Add(/*invocation.Expression.*/"MemberAccessExpressionSyntax");
                             }
                         }
                     }
@@ -71,10 +74,25 @@ namespace VisualRepresentation.Models
                     };
 
                     InvocationsInDeclarations.Add(semiResult);
-
-                    //invocationsInDeclaration.RemoveAll(e => !knownDeclarationsNames.Contains(e.))
                 }
 
+            }
+
+            foreach (MethodInvocationsInDeclaration invocationsInDeclaration in InvocationsInDeclarations)
+            {
+                var declarationNode = resultGraph.AddNode(invocationsInDeclaration.InDeclaration.Identifier.ToString());
+                declarationNode.Attr.FillColor = Color.AliceBlue;
+                declarationNode.Attr.Shape = Shape.Diamond;
+                foreach (var invocation in invocationsInDeclaration.MethodInvocations)
+                {
+                    var invocationName = getInvocationName(invocation);
+                    var invocationNode = resultGraph.FindNode(invocationName);
+                    if (invocationNode is null)
+                    {
+                        resultGraph.AddNode(invocationName);
+                    }
+                    var invocationInDeclarationEdge = resultGraph.AddEdge(declarationNode.LabelText+"(){}", invocationName);
+                }
             }
 
             return resultGraph;
@@ -130,6 +148,14 @@ namespace VisualRepresentation.Models
             return resultGraph;
         }
         #endregion
+
+        private string getInvocationName(InvocationExpressionSyntax _invocation)
+        {
+            var expression = _invocation.Expression;
+            string result = expression.ToString() + "()";
+
+            return result;
+        }
 
         private string getFileSize(string path)
         {
