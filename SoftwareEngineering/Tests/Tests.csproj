@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NetFilesFinderTests\WhenUserSearchesForFilesInValidFolder.cs" />
+    <Compile Include="ResourcesFolder\FolderWithCsFiles\test.cs" />
+    <Compile Include="ResourcesFolder\FolderWithCsFiles\test2.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,8 +59,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ResourcesFolder\FolderWithCsFiles\" />
     <Folder Include="ResourcesFolder\FolderWithoutCsFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ResourcesFolder\FolderWithCsFiles\test.txt" />
+    <Content Include="ResourcesFolder\FolderWithCsFiles\test2.txt" />
+    <Content Include="ResourcesFolder\FolderWithCsFiles\test3.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
