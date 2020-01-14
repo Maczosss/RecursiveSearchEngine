@@ -25,7 +25,7 @@ namespace DependenceFinderAndPlotter.Finders
             return result;
         }
 
-        public List<InvocationExpressionSyntax> GetMethodsInvocationsInAncestorDeclaration(MethodDeclarationSyntax ancestor)
+        public List<InvocationExpressionSyntax> GetMethodsInvocationsDeclaration(MethodDeclarationSyntax ancestor)
         {
             var result = new List<InvocationExpressionSyntax>();
             var descendantInvocation = ancestor.DescendantNodes().OfType<InvocationExpressionSyntax>();

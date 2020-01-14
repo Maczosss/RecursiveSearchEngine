@@ -7,6 +7,7 @@ namespace DependenceFinderAndPlotter.Nodes
     {
         public List<UsingDirectiveSyntax> UsingDirectives { get; set; }
         public string InFile { get; set; }
+        public string fileSize { get; set; }
 
         public UsingDirectivesInFile()
         {

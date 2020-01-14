@@ -44,20 +44,6 @@ namespace FilesFinder
                 return emptyResult;
             }
         }
-
-        //public List<string> FindCsProjFiles()
-        //{
-        //    List<string> result = new List<string>();
-        //    result.AddRange(Directory.GetFiles(TopMostDirectory, "*.csproj", SearchOption.AllDirectories));
-        //    this.foundCsFiles = result;
-        //    return result;
-        //}
-
-        //public bool HasFolderAnyCsFiles()
-        //{
-        //    var result = this.foundCsFiles.Any() ? true : false;
-        //    return result;
-        //}
     }
 
    
