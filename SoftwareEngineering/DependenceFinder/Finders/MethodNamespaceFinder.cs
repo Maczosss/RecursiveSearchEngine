@@ -1,16 +1,20 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DependenceFinderAndPlotter.Finders
 {
-    class MethodNamespaceFinder
+    public class MethodNamespaceFinder
     {
-        public List<NamespaceDeclarationSyntax> GetNamespaceOfMethodDeclaration(MethodDeclarationSyntax method)
+        public NamespaceDeclarationSyntax GetNamespaceOfMethodDeclaration(MethodDeclarationSyntax method)
         {
-            var result = new List<NamespaceDeclarationSyntax>();
-            var descendats = method.DescendantNodesAndSelf().OfType<NamespaceDeclarationSyntax>().ToList();
-            result.AddRange(descendats);
+            NamespaceDeclarationSyntax result;
+            //var tree = method.SyntaxTree;
+            //CSharpCompilation compilation = CSharpCompilation.Create("MethodCompilation", syntaxTrees: new[] { tree });
+            //var semanticModel = compilation.GetSemanticModel(tree, true);
+            var descendantNamespace = method.AncestorsAndSelf().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
+            result = descendantNamespace;
             return result;
         }
     }
