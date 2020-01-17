@@ -12,13 +12,76 @@ namespace VisualRepresentation.Models
 {
     class GraphModels
     {
-        public Graph GenerateGraph(bool story1, bool story2, bool story3, List<string> VMFoundFiles)
+        public Graph GenerateGraph(bool story1, bool story2, bool story3, bool story6, List<string> VMFoundFiles)
         {
-            //var story1Graph = generateStory1Graph(VMFoundFiles);
-            //var story2Graph = generateStory2Graph(VMFoundFiles, true);
-            //var story3Graph = generateStory3Graph(VMFoundFiles);
-            var story6Graph = generateStory6Graph(VMFoundFiles);
-            return story6Graph;
+            Graph resultGraph = new Graph();
+            var story1FileNode = resultGraph.AddNode("story1File");
+            story1FileNode.Attr.Shape = Shape.Octagon;
+            story1FileNode.Attr.FillColor = Color.DarkSeaGreen;
+
+            var story1UsingNode = resultGraph.AddNode("story1UsingNode");
+            story1UsingNode.Attr.Shape = Shape.Box;
+            story1UsingNode.Attr.FillColor = Color.Khaki;
+
+            resultGraph.AddEdge("story1File", "story1UsingNode");
+
+            var story2DeclarationNode = resultGraph.AddNode("story2DeclarationNode");
+            story2DeclarationNode.Attr.Shape = Shape.Ellipse;
+            story2DeclarationNode.Attr.FillColor = Color.CadetBlue;
+
+            var story2InvocationNode = resultGraph.AddNode("story2InvocationNode");
+            story2InvocationNode.Attr.Shape = Shape.Ellipse;
+            story2InvocationNode.Attr.FillColor = Color.AliceBlue;
+
+            resultGraph.AddEdge("story2DeclarationNode", "story2InvocationNode");
+
+
+            #region generate graphs
+            List<Graph> Graphs = new List<Graph>();
+            if (story1)
+            {
+                var story1Graph = generateStory1Graph(VMFoundFiles);
+                Graphs.Add(story1Graph);
+            }
+            if (story2)
+            {
+                var story2Graph = generateStory2Graph(VMFoundFiles, true);
+                Graphs.Add(story2Graph);
+            }
+            if (story3)
+            {
+                var story3Graph = generateStory3Graph(VMFoundFiles);
+                Graphs.Add(story3Graph);
+            }
+            if (story6)
+            {
+                var story6Graph = generateStory6Graph(VMFoundFiles);
+                Graphs.Add(story6Graph);
+            }
+
+            foreach (var graph in Graphs)
+            {
+                foreach (var node in graph.Nodes)
+                {
+                    if (!resultGraph.Nodes.Where(n=> n.Id == node.Id).Any())
+                    {
+                        resultGraph.AddNode(node);
+                    }
+                    
+                }
+                var edges = graph.Edges.ToList().AsReadOnly();
+                foreach (var edge in edges)
+                {
+                    if (!resultGraph.Edges.Where(e => e.Target == edge.Target && e.Source == edge.Source).Any())
+                    {
+                        resultGraph.AddEdge(edge.Source, edge.LabelText, edge.Target);
+                    }
+                    
+                }
+            }
+
+            return resultGraph;
+    #endregion
         }
 
         #region Usings graph
@@ -43,10 +106,8 @@ namespace VisualRepresentation.Models
             {
                 string fileNodeName = usingNode.InFile + "\n" + usingNode.fileSize;
                 var fileNode = resultGraph.AddNode(fileNodeName);
-                fileNode.Attr.FillColor = Color.AliceBlue;
-                fileNode.Attr.Shape = Shape.Diamond;
-                //var fileNode = resultGraph.FindNode(usingNode.InFile);
-
+                fileNode.Attr.FillColor = Color.DarkSeaGreen;
+                fileNode.Attr.Shape = Shape.Octagon;
 
                 foreach (var usingInFile in usingNode.UsingDirectives)
                 {
@@ -55,9 +116,10 @@ namespace VisualRepresentation.Models
                     if (node is null)
                     {
                         resultGraph.AddNode(usingInFileNodeName);
-
                     }
-                    var createdNode = resultGraph.FindNode(usingInFileNodeName);
+                    var createdUsingNode = resultGraph.FindNode(usingInFileNodeName);
+                    createdUsingNode.Attr.Shape = Shape.Box;
+                    createdUsingNode.Attr.FillColor = Color.Khaki;
                     var usingInFileEdge = resultGraph.AddEdge(fileNodeName, usingInFileNodeName);
 
 
@@ -66,7 +128,7 @@ namespace VisualRepresentation.Models
                 }
             }
             resultGraph.LayoutAlgorithmSettings.NodeSeparation = 10;
-            resultGraph.Attr.OptimizeLabelPositions = true;
+            resultGraph.Attr.OptimizeLabelPositions = false;
             return resultGraph;
         }
         #endregion
@@ -101,7 +163,6 @@ namespace VisualRepresentation.Models
                         if (expr is IdentifierNameSyntax)
                         {
                             IdentifierNameSyntax identifierName = expr as IdentifierNameSyntax;
-                            // identifierName is your method name
                             if (knownDeclarationsNames.Contains(identifierName.Identifier.Text))
                             {
                                 resultInvocations.Add(identifierName.Identifier.Text);
@@ -112,7 +173,6 @@ namespace VisualRepresentation.Models
                         if (expr is MemberAccessExpressionSyntax)
                         {
                             MemberAccessExpressionSyntax memberAccessExpressionSyntax = expr as MemberAccessExpressionSyntax;
-                            //memberAccessExpressionSyntax.Name is your method name
                             if (knownDeclarationsNames.Contains(memberAccessExpressionSyntax.Name.Identifier.Text))
                             {
                                 resultInvocations.Add(/*invocation.Expression.*/"MemberAccessExpressionSyntax");
@@ -133,18 +193,16 @@ namespace VisualRepresentation.Models
 
             foreach (MethodInvocationsInDeclaration invocationsInDeclaration in InvocationsInDeclarations)
             {
-                var declarationNode = resultGraph.AddNode(invocationsInDeclaration.InDeclaration.Identifier.ToString());
-                declarationNode.Attr.FillColor = Color.AliceBlue;
-                declarationNode.Attr.Shape = Shape.Diamond;
+                var declarationNode = resultGraph.AddNode(getMethodDeclarationName(invocationsInDeclaration.InDeclaration));
+                declarationNode.Attr.FillColor = Color.CadetBlue;
+                declarationNode.Attr.Shape = Shape.Ellipse;
                 foreach (var invocation in invocationsInDeclaration.MethodInvocations)
                 {
                     var invocationName = getInvocationName(invocation);
-                    var invocationNode = resultGraph.FindNode(invocationName);
-                    if (invocationNode is null)
-                    {
-                        resultGraph.AddNode(invocationName);
-                    }
-                    var invocationInDeclarationEdge = resultGraph.AddEdge(declarationNode.LabelText+"(){}", invocationName);
+                    var invocationNode = resultGraph.AddNode(invocationName);
+                    invocationNode.Attr.Shape = Shape.Ellipse;
+                    invocationNode.Attr.FillColor = Color.AliceBlue;
+                    var invocationInDeclarationEdge = resultGraph.AddEdge(declarationNode.LabelText, invocationName);
                 }
             }
 
@@ -157,9 +215,6 @@ namespace VisualRepresentation.Models
         {
             Graph resultGraph = new Graph("MethodsInPhysicalFilesGraph");
             var declarationFinder = new MethodDeclarationsFinder();
-            var methodsInFiles = new KeyValuePair<string, List<string>>();
-
-            var methodsInAllFiles = new List<MethodDeclarationSyntax>();
 
             foreach (var path in VMFoundFiles)
             {
@@ -170,10 +225,11 @@ namespace VisualRepresentation.Models
                 foreach (var declaration in foundDeclarations)
                 {
                     //TODO: Implement for new nodes with same name as previous. i.e: two functions with same identifier with two different files:
-                    var declarationNode = resultGraph.AddNode(getMethodDeclarationName(declaration));
+                    var declarationNode = resultGraph.AddNode("." + getMethodDeclarationName(declaration));
                     var fileToMethodEdge = resultGraph.AddEdge(fileNode.LabelText, declarationNode.LabelText);
                 }
             }
+
             return resultGraph;
         }
         #endregion
@@ -211,12 +267,12 @@ namespace VisualRepresentation.Models
 
             foreach (var _namespace in methodsNamespaceDictionary.Keys)
             {
-                var namespaceNode = resultGraph.AddNode(getNamespaceName(_namespace));
+                var namespaceNode = resultGraph.AddNode("Namespace:" + getNamespaceName(_namespace));
                 namespaceNode.Attr.Shape = Shape.Octagon;
                 namespaceNode.Attr.FillColor = Color.AliceBlue;
                 foreach (var method in methodsNamespaceDictionary[_namespace])
                 {
-                    var methodNode = resultGraph.AddNode(getMethodDeclarationName(method));
+                    var methodNode = resultGraph.AddNode("DiN:" + getMethodDeclarationName(method));
                     var namespaceMethodEdge = resultGraph.AddEdge(namespaceNode.LabelText, methodNode.LabelText);
                 }
             }
@@ -227,7 +283,7 @@ namespace VisualRepresentation.Models
         private string getFileName(string path)
         {
             var fileName = path.Split('\\').Last();
-            return fileName;
+            return "\\..\\" + fileName;
         }
 
         private string getNamespaceName(NamespaceDeclarationSyntax _namespace)
@@ -238,7 +294,7 @@ namespace VisualRepresentation.Models
 
         private string getMethodDeclarationName(MethodDeclarationSyntax methodDeclaration)
         {
-            var name = methodDeclaration.Identifier.Text + "()";
+            var name = methodDeclaration.Identifier.Text + "(){}";
             return name;
         }
 
@@ -262,7 +318,7 @@ namespace VisualRepresentation.Models
                 }
             }
 
-            string result = $"{lines.ToString()}\n({characters.ToString()})";
+            string result = $"{lines.ToString()} LOC\n({characters.ToString()})";
             return result;
         }
 
