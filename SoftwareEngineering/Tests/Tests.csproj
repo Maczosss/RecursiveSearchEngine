@@ -55,15 +55,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NetFilesFinderTests\WhenUserSearchesForFilesInValidFolder.cs" />
-    <Compile Include="ResourcesFolder\FolderWithCsFiles\test.cs" />
-    <Compile Include="ResourcesFolder\FolderWithCsFiles\test2.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ResourcesFolder\TestFile1.cs" />
+    <Compile Include="ResourcesFolder\TestFile2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <Folder Include="ResourcesFolder\FolderWithCsFiles\" />
     <Folder Include="ResourcesFolder\FolderWithoutCsFiles\" />
   </ItemGroup>
   <ItemGroup>

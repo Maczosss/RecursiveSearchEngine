@@ -53,7 +53,7 @@ namespace VisualRepresentation.ViewModels
             set
             {
                 _story1 = value;
-                OnPropertyChanged("Story1");
+                OnPropertyChanged("Story1Checkbox");
             }
         }
 
@@ -64,7 +64,7 @@ namespace VisualRepresentation.ViewModels
             set
             {
                 _story2 = value;
-                OnPropertyChanged("Story2");
+                OnPropertyChanged("Story2Checkbox");
             }
         }
 
@@ -75,9 +75,21 @@ namespace VisualRepresentation.ViewModels
             set
             {
                 _story3 = value;
-                OnPropertyChanged("Story3");
+                OnPropertyChanged("Story3Checkbox");
             }
         }
+
+        private bool _story6 = false;
+        public bool Story6Checkbox
+        {
+            get => _story6;
+            set
+            {
+                _story6 = value;
+                OnPropertyChanged("Story6Checkbox");
+            }
+        }
+
 
 
 

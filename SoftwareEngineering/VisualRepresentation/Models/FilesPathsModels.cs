@@ -16,7 +16,7 @@ namespace VisualRepresentation.Models
             this.foundCsFiles = new List<string>();
         }
 
-        public List<string> GetFiles(bool ignoreTestsFolders = false)
+        public List<string> GetFiles(bool ignoreTestsFolders = true)
         {
             foundCsFiles.Clear();
             List<string> result = new List<string>();
@@ -24,7 +24,24 @@ namespace VisualRepresentation.Models
 
             if (ignoreTestsFolders)
             {
-                this.removeTestFolders(result);
+                List<string> newResult = new List<string>();
+                foreach (var path in result)
+                {
+                    if (path.Split('\\').Last() == "FilesPathsModels.cs")
+                    {
+                        continue;
+                    }
+                    var fileLines = File.ReadAllLines(path);
+                    if (fileLines.Where(l => l.Contains("[TestFixture]") || l.Contains("[Test]")).Any())
+                    {
+
+                    }
+                    else
+                    {
+                        newResult.Add(path);
+                    }
+                }
+                result = newResult;
             }
 
             foundCsFiles.AddRange(result);
@@ -32,9 +49,15 @@ namespace VisualRepresentation.Models
             return foundCsFiles;
         }
 
-        private void removeTestFolders(List<string> paths)
+        public List<string> GetFilesInCurrentDirectoryOnly()
         {
-            paths.RemoveAll(p => p.Contains("Test"));
+            foundCsFiles.Clear();
+            List<string> result = new List<string>();
+            result.AddRange(Directory.GetFiles(PathToFolder, "*.cs", SearchOption.TopDirectoryOnly));
+
+            foundCsFiles.AddRange(result);
+
+            return foundCsFiles;
         }
 
         public bool HasFolderAnyCsFiles()

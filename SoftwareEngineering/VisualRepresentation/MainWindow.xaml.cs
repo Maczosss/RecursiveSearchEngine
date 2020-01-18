@@ -73,9 +73,14 @@ namespace VisualRepresentation
             {
                 var graphModels = new GraphModels();
                 
-                var graph = graphModels.GenerateGraph(true, true, true, mainWindowViewModel.FoundCsFiles);
+                var graph = graphModels.GenerateGraph(
+                    mainWindowViewModel.Story1Checkbox, mainWindowViewModel.Story2Checkbox,
+                    mainWindowViewModel.Story3Checkbox, mainWindowViewModel.Story6Checkbox, 
+                    mainWindowViewModel.FoundCsFiles);
                 Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
+                
                 Viewer.Graph = graph;
+                
                 //TODO: GenerateGRaph() returns viewer and replaces prop Viewer. Move "CurrentLaoytMethod" to bour buttons or even better: dropdawn list. 
                 Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
                 graphCanvas.Child = Viewer;
