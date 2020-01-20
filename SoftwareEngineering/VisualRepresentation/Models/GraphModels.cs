@@ -203,6 +203,8 @@ namespace VisualRepresentation.Models
                     invocationNode.Attr.Shape = Shape.Ellipse;
                     invocationNode.Attr.FillColor = Color.AliceBlue;
                     var invocationInDeclarationEdge = resultGraph.AddEdge(declarationNode.LabelText, invocationName);
+                    var thisInvocationsCount = invocationsInDeclaration.MethodInvocations.Where(e => e.Expression.ToString() == invocation.Expression.ToString()).Count();
+                    invocationInDeclarationEdge.LabelText = thisInvocationsCount.ToString();
                 }
             }
 
@@ -279,6 +281,8 @@ namespace VisualRepresentation.Models
 
             return resultGraph;
         }
+
+        
 
         private string getFileName(string path)
         {

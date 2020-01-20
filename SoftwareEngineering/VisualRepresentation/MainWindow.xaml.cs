@@ -7,6 +7,7 @@ using TextBox = System.Windows.Controls.TextBox;
 using Microsoft.Msagl.GraphViewerGdi;
 using Microsoft.Msagl.Drawing;
 using VisualRepresentation.Models;
+using System.IO;
 
 namespace VisualRepresentation
 {
@@ -63,7 +64,11 @@ namespace VisualRepresentation
             }
             
             this.PathModel = new FilesPathsModels(mainWindowViewModel.PathToFolder);
-            mainWindowViewModel.FoundCsFiles = PathModel.GetFiles();
+            if (this.PathModel.PathToFolder != "Choose folder with files to graph...")
+            {
+                mainWindowViewModel.FoundCsFiles = PathModel.GetFiles();
+            }
+            
             
         }
 
