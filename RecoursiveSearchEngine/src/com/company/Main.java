@@ -16,6 +16,12 @@ public class Main {
         generator.toPNG();
         System.out.println(fileName);
 
-        new Frame();
+
+        String[]pngsPath=new String [3];
+        pngsPath[0]="test.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku
+        pngsPath[1]="pepedab.png";
+        pngsPath[2]="pepus.png";
+
+        new Frame(pngsPath);
     }
 }
