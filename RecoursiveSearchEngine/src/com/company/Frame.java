@@ -32,18 +32,24 @@ public class Frame extends JFrame implements ActionListener{
         label1.setIcon(icon1);
         scrollPane1 = new JScrollPane(label1);
         scrollPane1.setBounds(0,0,scrollPanelWidth,scrollPanelHeight);
+        scrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane1.getHorizontalScrollBar().setUnitIncrement(16);
             //icon 2
     ImageIcon icon2 = new ImageIcon(pngsPath[1]);
         JLabel label2 = new JLabel();
         label2.setIcon(icon2);
         scrollPane2 = new JScrollPane(label2);
         scrollPane2.setBounds(0,0,scrollPanelWidth,scrollPanelHeight);
+        scrollPane2.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane1.getHorizontalScrollBar().setUnitIncrement(16);
           //icon 3
     ImageIcon icon3 = new ImageIcon(pngsPath[2]);
         JLabel label3 = new JLabel();
         label3.setIcon(icon3);
         scrollPane3 = new JScrollPane(label3);
         scrollPane3.setBounds(0,0,scrollPanelWidth,scrollPanelHeight);
+        scrollPane3.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane1.getHorizontalScrollBar().setUnitIncrement(16);
 
 
             //buttons

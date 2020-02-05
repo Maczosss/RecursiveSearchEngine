@@ -19,8 +19,8 @@ public class Main {
 
         String[]pngsPath=new String [3];
         pngsPath[0]="test.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku
-        pngsPath[1]="pepedab.png";
-        pngsPath[2]="pepus.png";
+        pngsPath[1]="test.png";
+        pngsPath[2]="test.png";
 
         new Frame(pngsPath);
     }
