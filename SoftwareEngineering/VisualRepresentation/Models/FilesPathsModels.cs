@@ -18,34 +18,36 @@ namespace VisualRepresentation.Models
 
         public List<string> GetFiles(bool ignoreTestsFolders = true)
         {
-            foundCsFiles.Clear();
-            List<string> result = new List<string>();
-            result.AddRange(Directory.GetFiles(PathToFolder, "*.cs", SearchOption.AllDirectories));
-
-            if (ignoreTestsFolders)
+            if (Directory.Exists(this.PathToFolder))
             {
-                List<string> newResult = new List<string>();
-                foreach (var path in result)
+                foundCsFiles.Clear();
+                List<string> result = new List<string>();
+                result.AddRange(Directory.GetFiles(PathToFolder, "*.cs", SearchOption.AllDirectories));
+
+                if (ignoreTestsFolders)
                 {
-                    if (path.Split('\\').Last() == "FilesPathsModels.cs")
+                    List<string> newResult = new List<string>();
+                    foreach (var path in result)
                     {
-                        continue;
-                    }
-                    var fileLines = File.ReadAllLines(path);
-                    if (fileLines.Where(l => l.Contains("[TestFixture]") || l.Contains("[Test]")).Any())
-                    {
+                        if (path.Split('\\').Last() == "FilesPathsModels.cs")
+                        {
+                            continue;
+                        }
+                        var fileLines = File.ReadAllLines(path);
+                        if (fileLines.Where(l => l.Contains("[TestFixture]") || l.Contains("[Test]")).Any())
+                        {
 
+                        }
+                        else
+                        {
+                            newResult.Add(path);
+                        }
                     }
-                    else
-                    {
-                        newResult.Add(path);
-                    }
+                    result = newResult;
                 }
-                result = newResult;
+
+                foundCsFiles.AddRange(result);
             }
-
-            foundCsFiles.AddRange(result);
-
             return foundCsFiles;
         }
 
@@ -62,7 +64,7 @@ namespace VisualRepresentation.Models
 
         public bool HasFolderAnyCsFiles()
         {
-            var result = this.foundCsFiles.Any() ? true : false;
+            var result = this.GetFiles().Any() ? true : false;
             return result;
         }
     }

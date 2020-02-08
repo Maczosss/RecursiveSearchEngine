@@ -7,6 +7,7 @@ using TextBox = System.Windows.Controls.TextBox;
 using Microsoft.Msagl.GraphViewerGdi;
 using Microsoft.Msagl.Drawing;
 using VisualRepresentation.Models;
+using System.IO;
 
 namespace VisualRepresentation
 {
@@ -15,8 +16,6 @@ namespace VisualRepresentation
         public MainViewModel mainWindowViewModel;
         
         public GViewer Viewer { get; set; }
-        //changed to property, initialized only on construction and 'stays alive' througout timespan of application.
-        //GViewer viewer = new GViewer();
         public FilesPathsModels PathModel { get; set; }
 
         public MainWindow()
@@ -24,6 +23,7 @@ namespace VisualRepresentation
             InitializeComponent();
             Viewer = new GViewer();
             mainWindowViewModel = this.DataContext as MainViewModel;
+            PathModel = new FilesPathsModels(this.mainWindowViewModel.PathToFolder);
 
         }
        
@@ -56,40 +56,40 @@ namespace VisualRepresentation
         {
             using (var dialog = new FolderBrowserDialog())
             {
-                if (dialog.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK)
+                DialogResult result = dialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     mainWindowViewModel.PathToFolder = dialog.SelectedPath;
+                    this.PathModel.PathToFolder = mainWindowViewModel.PathToFolder;
                 }
-            }
-            
-            this.PathModel = new FilesPathsModels(mainWindowViewModel.PathToFolder);
-            mainWindowViewModel.FoundCsFiles = PathModel.GetFiles();
-            
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    
+                }
+            }            
         }
 
         private void btnGenerateGraph_Click(object sender, MouseButtonEventArgs e)
         {
             if (this.PathModel.HasFolderAnyCsFiles())
             {
+                mainWindowViewModel.FoundCsFiles = PathModel.GetFiles();
+
                 var graphModels = new GraphModels();
                 
                 var graph = graphModels.GenerateGraph(
-                    mainWindowViewModel.Story1Checkbox, mainWindowViewModel.Story2Checkbox,
-                    mainWindowViewModel.Story3Checkbox, mainWindowViewModel.Story6Checkbox, 
+                    mainWindowViewModel.Story1Checkbox, 
+                    mainWindowViewModel.Story2Checkbox,
+                    mainWindowViewModel.Story3Checkbox, 
+                    mainWindowViewModel.Story6Checkbox, 
                     mainWindowViewModel.FoundCsFiles);
                 Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
                 
                 Viewer.Graph = graph;
                 
-                //TODO: GenerateGRaph() returns viewer and replaces prop Viewer. Move "CurrentLaoytMethod" to bour buttons or even better: dropdawn list. 
                 Viewer.CurrentLayoutMethod = LayoutMethod.MDS;
                 graphCanvas.Child = Viewer;
-                
-                //Hide toolbar
-                //viewer.ToolBarIsVisible = false;
-
-                //Make pan button on by default which enables to moving around the graph and zooming it by scroll button
-                //viewer.PanButtonPressed = true; 
             }
             else
             {
