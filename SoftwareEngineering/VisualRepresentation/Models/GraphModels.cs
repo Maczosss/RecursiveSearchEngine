@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace VisualRepresentation.Models
 {
-    class GraphModels
+    public class GraphModels
     {
         public Graph GenerateGraph(bool story1, bool story2, bool story3, bool story6, List<string> VMFoundFiles)
         {

@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetFilesFinderTests\WhenUserDecidesToGenerateGraph.cs" />
     <Compile Include="NetFilesFinderTests\WhenUserSearchesForFilesInValidFolder.cs" />
     <Compile Include="ResourcesFolder\TestFile1.cs" />
     <Compile Include="ResourcesFolder\TestFile2.cs" />
@@ -62,9 +63,17 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ResourcesFolder\FolderWithCsFiles\" />
+    <ProjectReference Include="..\DependenceFinder\DependenceFinderAndPlotter.csproj">
+      <Project>{e6fe49ef-e0b4-4877-bf6d-68d78ed2b072}</Project>
+      <Name>DependenceFinderAndPlotter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VisualRepresentation\VisualRepresentation.csproj">
+      <Project>{1913a290-338e-43af-b285-2c331b8f1e65}</Project>
+      <Name>VisualRepresentation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="ResourcesFolder\FolderWithoutCsFiles\" />
   </ItemGroup>
   <ItemGroup>
