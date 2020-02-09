@@ -1,0 +1,6 @@
+# Default ignored files
+.idea
+RecoursiveSearchEngine/out/
+/target
+*.png
+RecursiveSearchEngine.iml
