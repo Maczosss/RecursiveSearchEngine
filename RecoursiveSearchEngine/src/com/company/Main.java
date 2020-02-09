@@ -8,8 +8,17 @@ public class Main {
     public static void main(String[] args) {
         String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
         Reader reader = new Reader(fileName);
+
+//        MapSaver saver = new MapSaver(reader.getTextFromFiles());
+        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
+        System.out.println(methodCounter.getMethodMap());
+        methodCounter.getMethodsForClasses();
+        System.out.println("=========================");
+        methodCounter.show();
+
+
         MapSaver saver = new MapSaver(reader.getTextFromFiles());
-        Map<String, List<String>> neighbourMap = saver.getMapWithAllData2();
+        Map<String, List<String>> neighbourMap = saver.getMapWithAllData2(
 
         System.out.println(neighbourMap);
         MapImageGenerator generator = new MapImageGenerator(neighbourMap);
