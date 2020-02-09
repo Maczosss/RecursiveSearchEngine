@@ -7,12 +7,12 @@ public class MethodCounter {
     private List<String> dataList;
     private Map<String, Integer> methodCounter = new HashMap<>();
 
-    MethodCounter(List<String> dataList) {
+    public MethodCounter(List<String> dataList) {
         this.dataList = dataList;
     }
 
 
-    Map<String, List<String>> getMethodMap() {
+    public Map<String, List<String>> getMethodMap() {
         List<String> methodsNamesInClass = new ArrayList<>();
         Map<String, List<String>> methodsInClassMap = new HashMap<>();
 
@@ -43,6 +43,7 @@ public class MethodCounter {
             }
         }
         this.methodsInClassMap = methodsInClassMap;
+        System.out.println(methodsInClassMap);
         return methodsInClassMap;
     }
 
@@ -51,6 +52,9 @@ public class MethodCounter {
     }
 
     public void getMethodsForClasses() {
+        if(methodCounter.isEmpty()){
+            getMethodMap();
+        }
         String oneClass = "";
         List<String> classes = new LinkedList<>();
         Map<String, String> wholeClassesWithData = new HashMap<>();
@@ -87,5 +91,6 @@ public class MethodCounter {
                 methodCounter.put("Method: " + checkedMethod + " is called in class: " + temp, count);
             }
         }
+        System.out.println(methodCounter);
     }
 }

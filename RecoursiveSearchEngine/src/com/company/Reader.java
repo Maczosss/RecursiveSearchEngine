@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-class Reader {
+public class Reader {
     private String fileName;
     private File file;
     private BufferedReader reader;
@@ -18,12 +18,12 @@ class Reader {
     private List<String> results = new ArrayList<>();
 
 
-    Reader(String fileName) {
+    public Reader(String fileName) {
         this.fileName = fileName;
         this.file = new File(fileName);
     }
 
-    List<String> getTextFromFiles() {
+    public List<String> getTextFromFiles() {
         if (file.canRead()) {
             for (File f : Objects.requireNonNull(file.listFiles())) {
                 try {
