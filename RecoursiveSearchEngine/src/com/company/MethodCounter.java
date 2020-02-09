@@ -84,8 +84,17 @@ public class MethodCounter {
                     count++;
                     fromIndex++;
                 }
-                methodCounter.put("Method: " + checkedMethod + " is called in class: " + temp, count);
+                //methodCounter.put("Method: " + checkedMethod + " is called in class: " + temp, count);
+                methodCounter.put(checkedMethod, count);
             }
         }
+    }
+
+    public Map<String, List<String>> getMethodsInClassMap() {
+        return methodsInClassMap;
+    }
+
+    public Map<String, Integer> getMethodCounter() {
+        return methodCounter;
     }
 }
