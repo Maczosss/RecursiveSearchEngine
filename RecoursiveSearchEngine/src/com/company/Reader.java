@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-class Reader {
+public class Reader {
     private String fileName;
     private File file;
     private BufferedReader reader;
@@ -15,11 +15,11 @@ class Reader {
     private List<String> results = new ArrayList<>();
     private Map<String, List<String>> filesCollection = new HashMap<>(); // <nazwa folderu< nazwa pliku, tresc>>
     private static Map<File, List<File>> directoriesAndFiles = new HashMap<>();
-      
+
     private int filter = 0;
 
 
-    Reader(String fileName) {
+    public Reader(String fileName) {
         this.fileName = fileName;
         this.file = new File(fileName);
     }
