@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Reader {
@@ -31,6 +32,30 @@ public class Reader {
     }
 
 //    public Map<String,Map<String,String>> getContentFromFile
+
+    public Map<String, List<String>> methodForStory1() {
+        Set<String> temp = mapWithFilesContent.get("company").keySet();
+        List<String> temporary = new LinkedList<>(temp);
+        mapForStory1.put("Main", temporary);
+        for (String i : mapWithFilesContent.keySet()) {
+            if (mapWithFilesContent.get(i).keySet().size() != 0) {
+                for (String j : mapWithFilesContent.get(i).keySet()) {
+                    List<String> filenames = new LinkedList<>();
+                    for (String s : mapWithFilesContent.keySet()) {
+                        for (String d : mapWithFilesContent.get(i).keySet()) {
+                            if (mapWithFilesContent.get(i).get(j).toString().contains(d)&& !d.equals(j)) {
+                                filenames.add(d);
+                            }
+                        }
+                    }
+                    if(!Objects.equals(j, "Main"))
+                    mapForStory1.put(j, filenames);
+                }
+
+            }
+        }
+        return null;
+    }
 
     public void getThroughFiles(String fileName) {
 
@@ -96,6 +121,10 @@ public class Reader {
         System.out.println("directoriesAndFiles collection: " + directoriesAndFiles);
         System.out.println("============================");
         System.out.println("mapWithFilesContent: " + mapWithFilesContent);
+        System.out.println("============================");
+        for(String x : mapForStory1.keySet()){
+            System.out.println(mapForStory1.get(x));
+        }
 
     }
 
@@ -139,11 +168,11 @@ public class Reader {
         String classname = "";
         for (String temp : lines) {
             if (temp.contains("class")) {
-                System.out.println("been here"+temp);
+                System.out.println("been here" + temp);
             }
             if (temp.contains("class ")) {
                 String line = temp.replace(" ", "");
-                int counterBegin = line.indexOf("class",0) + 5;
+                int counterBegin = line.indexOf("class", 0) + 5;
                 int counterEnd = line.indexOf("{", 0);
                 classname = line.substring(counterBegin, counterEnd);
                 if (classname.contains("extends")) {

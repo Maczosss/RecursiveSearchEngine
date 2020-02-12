@@ -13,6 +13,7 @@ public class Main {
         reader.getTextFromFiles();
         reader.getThroughFiles(fileName);
         reader.trimMapToNewOneWithStrings();
+        reader.methodForStory1();
         reader.show();
 
        // MapImageGenerator generator;
