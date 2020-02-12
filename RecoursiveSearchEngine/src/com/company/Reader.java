@@ -13,8 +13,14 @@ public class Reader {
     private BufferedReader reader;
     private List<String> lines = new ArrayList<>();
     private List<String> results = new ArrayList<>();
-    private Map<String, List<String>> filesCollection = new HashMap<>(); // <nazwa folderu< nazwa pliku, tresc>>
+    private Map<String, List<String>> filesCollection = new HashMap<>();
     private static Map<File, List<File>> directoriesAndFiles = new HashMap<>();
+
+    //    private Map<String, Map<String, String>> mapWithFilesContent = new HashMap<>();
+    private Map<String, Map<String, List<String>>> mapWithFilesContent = new HashMap<>();
+
+    private Map<String, List<String>> mapForStory1 = new HashMap<>();
+
 
     private int filter = 0;
 
@@ -24,6 +30,7 @@ public class Reader {
         this.file = new File(fileName);
     }
 
+//    public Map<String,Map<String,String>> getContentFromFile
 
     public void getThroughFiles(String fileName) {
 
@@ -34,16 +41,20 @@ public class Reader {
         String temp = root.getPath();
         System.out.println(temp);
         this.filter = temp.lastIndexOf("\\");
+        Map<String, List<String>> fileContents = new HashMap<>();
 
         if (list == null) return;
         for (File f : list) {
             if (f.isDirectory()) {
                 dirs.add(f);
             } else {
-                if (f.toString().contains(".java"))
+                if (f.toString().contains(".java")) {
                     files.add(f);
+                    fileContents.putAll(getTextFromFile(f));
+                }
             }
         }
+        mapWithFilesContent.put(root.getName(), new HashMap<>(fileContents));
         directoriesAndFiles.put(root, files);
         if (dirs.size() != 0) {
             for (File dir : dirs) {
@@ -57,16 +68,22 @@ public class Reader {
         File[] list = directory.listFiles();
         List<File> dirs = new LinkedList<>();
         List<File> files = new LinkedList<>();
+        Map<String, List<String>> fileContents = new HashMap<>();
+
 
         if (list == null) return;
         for (File f : list) {
             if (f.isDirectory()) {
                 dirs.add(f);
             } else {
-                if (f.toString().contains(".java"))
+                if (f.toString().contains(".java")) {
                     files.add(f);
+                    fileContents = getTextFromFile(f);
+                }
+
             }
         }
+        mapWithFilesContent.put(directory.getName(), new HashMap<>(fileContents));
         directoriesAndFiles.put(directory, files);
         if (dirs.size() != 0) {
             for (File dir : dirs) {
@@ -76,7 +93,10 @@ public class Reader {
     }
 
     public void show() {
-        System.out.println(directoriesAndFiles);
+        System.out.println("directoriesAndFiles collection: " + directoriesAndFiles);
+        System.out.println("============================");
+        System.out.println("mapWithFilesContent: " + mapWithFilesContent);
+
     }
 
     public void trimMapToNewOneWithStrings() {
@@ -95,8 +115,7 @@ public class Reader {
                 String name = f.getPath();
                 name.substring(0, filter);
                 filesCollection.put(name, listOfFilesInDirectory);
-            }
-            else {
+            } else {
                 String name = f.getPath();
                 filesCollection.put(name, listOfFilesInDirectory);
             }
@@ -107,6 +126,40 @@ public class Reader {
         System.out.println(filesCollection);
     }
 
+    public Map<String, List<String>> getTextFromFile(File file) {
+        StringBuilder outputFromFile = new StringBuilder();
+        List<String> lines = new LinkedList<>();
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(file.getPath()));
+            lines.add(reader.lines().collect(Collectors.toList()).toString());
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!" + e);
+        }
+        String classname = "";
+        for (String temp : lines) {
+            if (temp.contains("class")) {
+                System.out.println("been here"+temp);
+            }
+            if (temp.contains("class ")) {
+                String line = temp.replace(" ", "");
+                int counterBegin = line.indexOf("class",0) + 5;
+                int counterEnd = line.indexOf("{", 0);
+                classname = line.substring(counterBegin, counterEnd);
+                if (classname.contains("extends")) {
+                    int end = classname.indexOf("extends", 0);
+                    classname = classname.substring(0, end);
+                }
+                if (classname.contains("implements")) {
+                    int end = classname.indexOf("implements", 0);
+                    classname = classname.substring(0, end);
+                }
+            }
+        }
+        Map<String, List<String>> result = new HashMap<>();
+        result.put(classname, lines);
+        return result;
+    }
 
     //reforging ends
 

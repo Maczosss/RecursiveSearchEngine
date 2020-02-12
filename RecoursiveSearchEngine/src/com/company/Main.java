@@ -7,11 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
         String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
+        String test = "chuj dupa cycki ,,,,, . , . ,    spierdalaj      chuju";
         System.out.println(fileName);
         Reader reader = new Reader(fileName);
+        reader.getTextFromFiles();
         reader.getThroughFiles(fileName);
-        reader.show();
         reader.trimMapToNewOneWithStrings();
+        reader.show();
 
        // MapImageGenerator generator;
 
