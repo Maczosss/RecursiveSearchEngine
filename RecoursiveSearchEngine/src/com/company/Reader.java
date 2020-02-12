@@ -33,7 +33,7 @@ public class Reader {
 
 //    public Map<String,Map<String,String>> getContentFromFile
 
-    public Map<String, List<String>> methodForStory1() {
+    public void methodForStory1() {
         Set<String> temp = mapWithFilesContent.get("company").keySet();
         List<String> temporary = new LinkedList<>(temp);
         mapForStory1.put("Main", temporary);
@@ -43,18 +43,18 @@ public class Reader {
                     List<String> filenames = new LinkedList<>();
                     for (String s : mapWithFilesContent.keySet()) {
                         for (String d : mapWithFilesContent.get(i).keySet()) {
-                            if (mapWithFilesContent.get(i).get(j).toString().contains(d)&& !d.equals(j)) {
-                                filenames.add(d);
+                            if (mapWithFilesContent.get(i).get(j).toString().contains(d) && !d.equals(j)) {
+                                if (!filenames.contains(d))
+                                    filenames.add(d);
                             }
                         }
                     }
-                    if(!Objects.equals(j, "Main"))
-                    mapForStory1.put(j, filenames);
+                    if (!Objects.equals(j, "Main"))
+                        mapForStory1.put(j, filenames);
                 }
 
             }
         }
-        return null;
     }
 
     public void getThroughFiles(String fileName) {
@@ -122,7 +122,7 @@ public class Reader {
         System.out.println("============================");
         System.out.println("mapWithFilesContent: " + mapWithFilesContent);
         System.out.println("============================");
-        for(String x : mapForStory1.keySet()){
+        for (String x : mapForStory1.keySet()) {
             System.out.println(mapForStory1.get(x));
         }
 
