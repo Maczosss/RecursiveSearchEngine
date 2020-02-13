@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.*;
+//Klasa była używana w poprzedniej iteracji projektu
 
 class MapSaver {
     private Map<String, List<String>> neighbourMap = new HashMap<>();

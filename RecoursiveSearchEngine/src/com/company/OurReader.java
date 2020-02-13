@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class OurReader {
@@ -16,10 +15,7 @@ public class OurReader {
     private ArrayList<String> results = new ArrayList<>();
     private Map<String, List<String>> filesCollection = new HashMap<>();
     private static Map<File, List<File>> directoriesAndFiles = new HashMap<>();
-
-    //    private Map<String, Map<String, String>> mapWithFilesContent = new HashMap<>();
     private Map<String, Map<String, List<String>>> mapWithFilesContent = new HashMap<>();
-
     private Map<String, List<String>> mapForStory1 = new HashMap<>();
 
 
@@ -30,8 +26,6 @@ public class OurReader {
         this.fileName = fileName;
         this.file = new File(fileName);
     }
-
-//    public Map<String,Map<String,String>> getContentFromFile
 
     public void methodForStory1() {
         Set<String> temp = mapWithFilesContent.get("company").keySet();
@@ -215,9 +209,6 @@ public class OurReader {
             }
 
         }
-//        for (String result : results) {
-//            System.out.println(result + "\n");
-//        }
         return results;
     }
 
