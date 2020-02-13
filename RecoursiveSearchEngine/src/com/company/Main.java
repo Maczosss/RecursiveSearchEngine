@@ -7,12 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
         String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
+        MapImageGenerator generator;
 
         Reader reader = new Reader(fileName);
         reader.getThroughFiles(fileName);
         reader.methodForStory1();
-        reader.show();
-
+        generator=new MapImageGenerator("test1",reader.getMapForStory1());
+        generator.toPNG();
 
 
 
@@ -25,7 +26,6 @@ public class Main {
 //        methodCounter.getMethodsForClasses();
 //        System.out.println("=========================");
 //        methodCounter.show();
-        MapImageGenerator generator;
         generator=new MapImageGenerator("test2",methodCounter.getMethodCalls());
         generator.toPNG();
 //
@@ -40,9 +40,9 @@ public class Main {
 //
 //
        String[]pngsPath=new String [3];
-       pngsPath[0]="test.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku
+       pngsPath[0]="test1.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku
        pngsPath[1]="test2.png";
-       pngsPath[2]="test.png";
+       pngsPath[2]="test3.png";
        Frame frame=new Frame(pngsPath);
     }
 }
