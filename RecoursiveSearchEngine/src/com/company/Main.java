@@ -1,16 +1,14 @@
 package com.company;
 
 
-import java.util.*;
-
 public class Main {
 
     public static void main(String[] args) {
         String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
         MapImageGenerator generator;
 
-        Reader reader = new Reader(fileName);
-        reader.getThroughFiles(fileName);
+        OurReader reader = new OurReader(fileName);
+        reader.getThroughFilesFromAbsoluteRoot(fileName);
         reader.methodForStory1();
         generator=new MapImageGenerator("test1",reader.getMapForStory1());
         generator.toPNG();

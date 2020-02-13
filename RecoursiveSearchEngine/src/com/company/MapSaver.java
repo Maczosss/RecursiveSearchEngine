@@ -12,7 +12,7 @@ class MapSaver {
     }
 
     Map<Map<String, Integer>, List<String>> getMapWithAllData2() {
-        Reader reader = new Reader(null);
+        OurReader reader = new OurReader(null);
         int lineCounterForFile=0;
         String temporaryClassName = "";
         List<String> temporaryImports = new LinkedList<>();

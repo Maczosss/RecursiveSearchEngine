@@ -139,7 +139,12 @@ public class MethodCounter {
                 continue;
             if (matcher.find()) {                           //match do deklaracji
                 List<String> methodsCallsAfter = new ArrayList<>();
-                methodCalls.put(loadedString, methodsCallsAfter);
+                for (int j = 0;j<dataList.size();j++) {
+                    if(loadedString.contains(declarationList.get(j))) {
+                        methodCalls.put(declarationList.get(j), methodsCallsAfter);
+                        break;
+                    }
+                }
                                                                 //tworze mape
                 int counter = 0;
                 if(loadedString.contains("{"))
@@ -164,32 +169,11 @@ public class MethodCounter {
                                 if(secondLoadedString.contains("//")){
                                     continue;
                                 }
-                                int position = secondLoadedString.indexOf("(");
-                                String temp= secondLoadedString.substring(0,position);
-                                temp+="(";
-                                temp=temp.trim();
-
-                                position=temp.indexOf(' ');
-                                while(position>=0) {
-                                    temp = temp.substring(position + 1);
-                                    position = temp.indexOf(' ');
+                                if(!methodsCallsAfter.contains(declarationList.get(j))) {
+                                    methodsCallsAfter.add(declarationList.get(j));
                                 }
-
-                                //skrobanie stringa do skonczenia
-
-
-                                String result=temp.trim();
-                                methodsCallsAfter.add(secondLoadedString);
                             }
-
-
                         }
-
-
-
-
-
-
                     }
                     //System.out.println(counter);
 

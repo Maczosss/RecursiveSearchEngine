@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class Reader {
+public class OurReader {
     private String fileName;
     private File file;
     private BufferedReader reader;
@@ -26,7 +26,7 @@ public class Reader {
     private int filter = 0;
 
 
-    public Reader(String fileName) {
+    public OurReader(String fileName) {
         this.fileName = fileName;
         this.file = new File(fileName);
     }
@@ -56,7 +56,7 @@ public class Reader {
     }
 
 
-    public void getThroughFiles(String fileName) {
+    public void getThroughFilesFromAbsoluteRoot(String fileName) {
 
         File root = new File(fileName);
         File[] list = root.listFiles();

@@ -1,7 +1,7 @@
 //package Test;
 //
 //import com.company.MethodCounter;
-//import com.company.Reader;
+//import com.company.OurReader;
 //import org.junit.Test;
 //
 //import java.io.IOException;
@@ -22,7 +22,7 @@
 //    @Test
 //    public void getMethodMapTest() {
 //        String fileName = "C:\\Users\\macie\\OneDrive\\Desktop\\Gir repository\\RecursiveSearchEngine\\RecoursiveSearchEngine\\src\\com\\company";
-//        Reader reader = new Reader(fileName);
+//        OurReader reader = new OurReader(fileName);
 //        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
 //        List<String> result = new LinkedList<>();
 //        List<String> finalResult = new LinkedList<>();
@@ -52,7 +52,7 @@
 //    @Test
 //    public void show() {
 //        String fileName = "C:\\Users\\macie\\OneDrive\\Desktop\\Gir repository\\RecursiveSearchEngine\\RecoursiveSearchEngine\\src\\com\\company";
-//        Reader reader = new Reader(fileName);
+//        OurReader reader = new OurReader(fileName);
 //        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
 //    }
 //
