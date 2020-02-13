@@ -81,20 +81,23 @@ public class Frame extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         //displaying different panels
-        if(source == button1) {
+        if(source == button1)
+        {
             scrollPane1.setVisible(true);
             scrollPane2.setVisible(false);
             scrollPane3.setVisible(false);
 
         }
 
-        else if(source == button2) {
+        else if(source == button2)
+        {
             scrollPane1.setVisible(false);
             scrollPane2.setVisible(true);
             scrollPane3.setVisible(false);
 
         }
-        else if(source == button3){
+        else if(source == button3)
+        {
             scrollPane1.setVisible(false);
             scrollPane2.setVisible(false);
             scrollPane3.setVisible(true);

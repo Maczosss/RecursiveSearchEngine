@@ -13,7 +13,7 @@ public class Reader {
     private File file;
     private BufferedReader reader;
     private List<String> lines = new ArrayList<>();
-    private List<String> results = new ArrayList<>();
+    private ArrayList<String> results = new ArrayList<>();
     private Map<String, List<String>> filesCollection = new HashMap<>();
     private static Map<File, List<File>> directoriesAndFiles = new HashMap<>();
 
@@ -128,6 +128,10 @@ public class Reader {
 
     }
 
+    public Map<String, List<String>> getMapForStory1() {
+        return mapForStory1;
+    }
+
     public void trimMapToNewOneWithStrings() {
         for (File f : directoriesAndFiles.keySet()) {
             List<File> temporary = directoriesAndFiles.get(f);
@@ -195,7 +199,7 @@ public class Reader {
     //===================================================
 
 
-    List<String> getTextFromFiles() {
+    ArrayList<String> getTextFromFiles() {
         if (file.canRead()) {
             for (File f : Objects.requireNonNull(file.listFiles())) {
                 try {

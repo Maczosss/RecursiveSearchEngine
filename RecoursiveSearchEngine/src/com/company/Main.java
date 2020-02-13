@@ -10,16 +10,24 @@ public class Main {
         String test = "chuj dupa cycki ,,,,, . , . ,    spierdalaj      chuju";
         System.out.println(fileName);
         Reader reader = new Reader(fileName);
-        reader.getTextFromFiles();
-        reader.getThroughFiles(fileName);
-        reader.trimMapToNewOneWithStrings();
+   //     reader.getTextFromFiles();
+       reader.getThroughFiles(fileName);
+     //   reader.trimMapToNewOneWithStrings();
         reader.methodForStory1();
-        reader.show();
+    //    reader.show();
+
+        reader.methodForStory1();
+
+
+
 
        // MapImageGenerator generator;
 
-//        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
-//        System.out.println(methodCounter.getMethodMap());
+        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
+      // System.out.println(methodCounter.getMethodMap());
+        methodCounter.countCalls2();
+
+
 //        methodCounter.getMethodsForClasses();
 //        System.out.println("=========================");
 //        methodCounter.show();
@@ -42,6 +50,6 @@ public class Main {
 //        pngsPath[1]="test2.png";
 //        pngsPath[2]="test.png";
 //
-//        new Frame(pngsPath);
+//     Frame frame=new Frame(pngsPath);
     }
 }
