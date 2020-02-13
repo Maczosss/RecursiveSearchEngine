@@ -36,7 +36,6 @@ public class Reader {
     public void methodForStory1() {
         Set<String> temp = mapWithFilesContent.get("company").keySet();
         List<String> temporary = new LinkedList<>(temp);
-        mapForStory1.put("Main", temporary);
         for (String i : mapWithFilesContent.keySet()) {
             if (mapWithFilesContent.get(i).keySet().size() != 0) {
                 for (String j : mapWithFilesContent.get(i).keySet()) {
@@ -49,13 +48,13 @@ public class Reader {
                             }
                         }
                     }
-                    if (!Objects.equals(j, "Main"))
                         mapForStory1.put(j, filenames);
                 }
 
             }
         }
     }
+
 
     public void getThroughFiles(String fileName) {
 
