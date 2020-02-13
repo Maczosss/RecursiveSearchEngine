@@ -109,6 +109,7 @@ public class MethodCounter {
                  String temp= loadedString.substring(0,position);
                  temp+="(";
                  temp=temp.trim();
+                                                    //skrobanie stringa i usuwanie niepotrzebnych rzeczy
 
                  position=temp.indexOf(' ');
                 while(position>0) {
@@ -116,7 +117,6 @@ public class MethodCounter {
                     position = temp.indexOf(' ');
                 }
                 temp=temp.trim();
-
 
                 declarationList.add(temp);
                 //znajduje swoje deklaracje funckji i tworze ich liste
@@ -137,30 +137,26 @@ public class MethodCounter {
             Matcher matcher = regexFuncDeclar.matcher(loadedString);
             if(loadedString.contains("//"))
                 continue;
-            if (matcher.find()) {
+            if (matcher.find()) {                           //match do deklaracji
                 List<String> methodsCallsAfter = new ArrayList<>();
                 methodCalls.put(loadedString, methodsCallsAfter);
-
+                                                                //tworze mape
                 int counter = 0;
                 if(loadedString.contains("{"))
                     counter++;
-
+                                                        //for scopea deklaracji metody.
                 for (i+=1;i<dataList.size();i++) {
                     String secondLoadedString=dataList.get(i);
-
 
                     if (secondLoadedString.contains("{"))
                         counter++;
                     if (secondLoadedString.contains("}"))
                         counter--;
+
                     Matcher matcher2 = regexFuncCalls.matcher(secondLoadedString);
-                                                     ///do napisania co jak znajde :<
+
                     if (matcher2.find()) {
-
-
-
-
-
+                        //znalezienie matcha wywolanie funkcji = sprawdzanie z lista deklaracji naszych funkcji
                         for(int j=0;j<declarationList.size();j++){
                                                                         //dodawania do mapy
                             if(secondLoadedString.contains(declarationList.get(j))){
@@ -168,7 +164,6 @@ public class MethodCounter {
                                 if(secondLoadedString.contains("//")){
                                     continue;
                                 }
-
                                 int position = secondLoadedString.indexOf("(");
                                 String temp= secondLoadedString.substring(0,position);
                                 temp+="(";
@@ -179,6 +174,8 @@ public class MethodCounter {
                                     temp = temp.substring(position + 1);
                                     position = temp.indexOf(' ');
                                 }
+
+                                //skrobanie stringa do skonczenia
 
 
                                 String result=temp.trim();
