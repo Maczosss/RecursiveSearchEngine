@@ -11,21 +11,21 @@ public class Main {
         reader.getThroughFilesFromAbsoluteRoot(fileName);
         reader.methodForStory1();
         generator=new MapImageGenerator("test1",reader.getMapForStory1());
-        generator.toPNG();
+        generator.weightlessToPNG();
 
 
 
 
         MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
       // System.out.println(methodCounter.getMethodMap());
-        methodCounter.countCalls2();
+        methodCounter.countCalls();
 
 
 //        methodCounter.getMethodsForClasses();
 //        System.out.println("=========================");
 //        methodCounter.show();
-        generator=new MapImageGenerator("test2",methodCounter.getMethodCalls());
-        generator.toPNG();
+        generator=new MapImageGenerator("test2",methodCounter.getMethodCalls(),null);
+        generator.weightedToPNG();
 //
 //
 //        MapSaver saver = new MapSaver(reader.getTextFromFiles());
@@ -33,7 +33,7 @@ public class Main {
 
 //      System.out.println(neighbourMap);
 //       generator = new MapImageGenerator("test",neighbourMap);
- //      generator.toPNG();
+ //      generator.weightlessToPNG();
 //
 //
 //

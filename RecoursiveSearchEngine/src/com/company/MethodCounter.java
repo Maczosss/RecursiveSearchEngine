@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MethodCounter {
-    private Map<String, List<String>> methodCalls = new HashMap<>();
+    private Map<String, Map<String,Integer>> methodCalls = new HashMap<>();
     private ArrayList<String> dataList;
     private Map<String, Integer> methodCallsCounter = new HashMap<>();
     private ArrayList<String>declarationList;
@@ -14,81 +14,7 @@ public class MethodCounter {
         this.dataList = dataList;
     }
 
-
-
-
     public void countCalls(){
-
-        final Pattern regexFuncDeclar = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
-        //regex znajdujacy deklaracje funkcji
-
-       // final Pattern regexFuncCalls = Pattern.compile("(?!\\bif\\b|\\bfor\\b|\\bwhile\\b|\\bswitch\\b|\\btry\\b|\\bcatch\\b)(\\b[\\w]+\\b)[\\s\\n\\r]*(?=\\(.*\\))");
-        //regex dzialajacy na kazde wywolanie funkcji.
-
-
-        final Pattern regexFuncCalls = Pattern.compile("(\\.[\\s\\n\\r]*[\\w]+)[\\s\\n\\r]*(?=\\(.*\\))");
-        //regex dzialajacy na kazde wywolanie funkcji.
-        //mniej przepuszcza
-
-
-        for (int i =0;i< dataList.size();i++) {
-            String loadedString=dataList.get(i);
-            Matcher matcher = regexFuncDeclar.matcher(loadedString);
-            if(loadedString.contains("//"))
-                continue;
-            if (matcher.find()) {
-                List<String> methodsCallsAfter = new ArrayList<>();
-                methodCalls.put(loadedString, methodsCallsAfter);
-
-                int counter = 0;
-                if(loadedString.contains("{"))
-                   counter++;
-
-                for (i+=1;i<dataList.size();i++) {
-                    String secondLoadedString=dataList.get(i);
-
-
-
-                    if (secondLoadedString.contains("{"))
-                        counter++;
-                    if (secondLoadedString.contains("}"))
-                        counter--;
-                    Matcher matcher2 = regexFuncCalls.matcher(secondLoadedString);
-                    if (matcher2.find()) {
-
-                    //    secondLoadedString.replaceAll("^[ \t]+|[ \t]+$", "");
-                  //      secondLoadedString.replace(" ","");
-                   //     secondLoadedString.replace("\t","");
-                   //     secondLoadedString.replace("\n","");
-                   //     secondLoadedString.replace("if ","");
-
-                    //    secondLoadedString=secondLoadedString.replace("if","");
-                        secondLoadedString=secondLoadedString.trim();
-
-                        int poz1=secondLoadedString.lastIndexOf(")");
-                        System.out.println(poz1);
-
-                        System.out.println(secondLoadedString);
-                        methodsCallsAfter.add(secondLoadedString);
-
-
-                    }
-                    //System.out.println(counter);
-
-                    if (counter == 0 || secondLoadedString.contains("endfile")) {
-                      //  System.out.println("ucieka do 1 fora");
-                        break;
-                    }
-                }
-            }
-
-        }
-
-       // show();
-    }
-
-
-    public void countCalls2(){
 
          declarationList=new ArrayList<String>();
         final Pattern regexFuncDeclar = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
@@ -138,10 +64,10 @@ public class MethodCounter {
             if(loadedString.contains("//"))
                 continue;
             if (matcher.find()) {                           //match do deklaracji
-                List<String> methodsCallsAfter = new ArrayList<>();
+                Map<String,Integer> methodsCallsAfter = new HashMap<>();
                 for (int j = 0;j<dataList.size();j++) {
                     if(loadedString.contains(declarationList.get(j))) {
-                        methodCalls.put(declarationList.get(j), methodsCallsAfter);
+                        methodCalls.put(declarationList.get(j)+")", methodsCallsAfter);
                         break;
                     }
                 }
@@ -169,9 +95,12 @@ public class MethodCounter {
                                 if(secondLoadedString.contains("//")){
                                     continue;
                                 }
-                                if(!methodsCallsAfter.contains(declarationList.get(j))) {
-                                    methodsCallsAfter.add(declarationList.get(j));
-                                }
+
+                                methodsCallsAfter.put(declarationList.get(j),0);
+                                //Integer temp =0;
+
+                                methodsCallsAfter.put(declarationList.get(j),1);
+
                             }
                         }
                     }
@@ -192,108 +121,21 @@ public class MethodCounter {
 
     }
 
-
-
-
-    public Map<String, List<String>> getMethodMap() {
-        List<String> methodsNamesInClass = new ArrayList<>();
-        Map<String, List<String>> methodsInClassMap = new HashMap<>();
-
-        int lineCounterForFile = 0;
-        String temporaryClassName = "";
-        for (String s : dataList) {
-            if (!s.contains("File end")) {
-                if (s.contains("class ") && !s.contains("(")) {
-                    String line = s.strip();
-                    int counterBegin = line.lastIndexOf("ss") + 2;
-                    int counterEnd = line.lastIndexOf("{");
-                    temporaryClassName = line.substring(counterBegin, counterEnd).strip();
-                }
-                if (s.contains("(") && s.contains(")") && s.contains("{") && !s.contains(";")
-                        && !s.contains("for") && !s.contains("if") && !s.contains("while") && !s.contains("catch")) {
-                    int counterEnd = s.lastIndexOf("(");
-                    String temp = s.substring(0, counterEnd).strip();
-                    String[] result;
-                    result = temp.split("[ ]");
-                    methodsNamesInClass.add(result[result.length - 1]);
-                }
-                lineCounterForFile++;
-            } else if (!s.contains("(")) {
-                methodsInClassMap.put(temporaryClassName, new LinkedList<>(methodsNamesInClass));
-                temporaryClassName = "";
-                methodsNamesInClass.clear();
-                lineCounterForFile = 0;
-            }
-        }
-        this.methodCalls = methodsInClassMap;
-        System.out.println(methodsInClassMap);
-        return methodsInClassMap;
-    }
-    public void getMethodsForClasses() {
-        if(methodCallsCounter.isEmpty()){
-            getMethodMap();
-        }
-        String oneClass = "";
-        List<String> classes = new LinkedList<>();
-        Map<String, String> wholeClassesWithData = new HashMap<>();
-        String className = "";
-
-        for (String s : dataList) {
-            if (!s.contains("File end")) {
-                oneClass += s;
-                if (s.contains("class ") && !s.contains("(")) {
-                    String line = s.strip();
-                    int counterBegin = line.lastIndexOf("ss") + 2;
-                    int counterEnd = line.lastIndexOf("{");
-                    className = line.substring(counterBegin, counterEnd).strip();
-                    classes.add(className);
-                }
-
-            } else if (!s.contains("(")) {
-                wholeClassesWithData.put(className, oneClass);
-                oneClass = "";
-            }
-        }
-        for (String temp : classes) {
-            for (String checkedMethod : methodCalls.get(temp)) {
-
-                String str = wholeClassesWithData.get(temp);
-
-                String strFind = checkedMethod;
-                int count = 0, fromIndex = 0;
-
-                while ((fromIndex = str.indexOf(strFind, fromIndex)) != -1) {
-                    count++;
-                    fromIndex++;
-                }
-                //methodCounter.put("Method: " + checkedMethod + " is called in class: " + temp, count);
-                methodCallsCounter.put(checkedMethod, count);
-            }
-        }
-        System.out.println(methodCallsCounter);
-    }
-
-
-
     public void show() {
 
 
 
-        Iterator<Map.Entry<String, List<String>>> entries = methodCalls.entrySet().iterator();
+        Iterator<Map.Entry<String, Map<String,Integer>>> entries = methodCalls.entrySet().iterator();
         while (entries.hasNext()) {
-            Map.Entry<String, List<String>> entry = entries.next();
+            Map.Entry<String, Map<String,Integer>> entry = entries.next();
             System.out.println("Key = " + entry.getKey() + ", Value = \n");
 
-            List<String> list=entry.getValue();
-            for(String s : list)
+            Map<String,Integer> list=entry.getValue();
+            for(Map.Entry<String,Integer> s : list.entrySet())
                 System.out.println(s);
         }
     }
-    public Map<String, List<String>> getMethodCalls() {
+    public Map<String, Map<String,Integer>> getMethodCalls() {
         return methodCalls;
-    }
-
-    public Map<String, Integer> getMethodCallsCounter() {
-        return methodCallsCounter;
     }
 }
