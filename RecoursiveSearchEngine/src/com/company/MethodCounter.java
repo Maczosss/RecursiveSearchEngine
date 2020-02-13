@@ -15,6 +15,8 @@ public class MethodCounter {
     }
 
 
+
+
     public void countCalls(){
 
         final Pattern regexFuncDeclar = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
@@ -84,8 +86,6 @@ public class MethodCounter {
 
        // show();
     }
-
-
 
 
     public void countCalls2(){
@@ -165,7 +165,9 @@ public class MethodCounter {
                                                                         //dodawania do mapy
                             if(secondLoadedString.contains(declarationList.get(j))){
 
-
+                                if(secondLoadedString.contains("//")){
+                                    continue;
+                                }
 
                                 int position = secondLoadedString.indexOf("(");
                                 String temp= secondLoadedString.substring(0,position);
