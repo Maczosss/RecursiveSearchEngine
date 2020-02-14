@@ -11,13 +11,13 @@ public class Main {
         reader.getThroughFilesFromAbsoluteRoot(fileName);
         reader.methodForStory1();
         generator=new MapImageGenerator("test1",reader.getMapForStory1(),null);
-        generator.weightlessToPNG();
+        generator.toPNG(false);
 
         MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
         methodCounter.countCalls();
 
         generator=new MapImageGenerator("test2",methodCounter.getMethodCalls(),null);
-        generator.weightedToPNG();
+        generator.toPNG(true);
 
        String[]pngsPath=new String [3];
        pngsPath[0]="test1.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku

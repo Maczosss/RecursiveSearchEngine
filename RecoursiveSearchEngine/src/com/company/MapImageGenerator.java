@@ -52,15 +52,6 @@ public class MapImageGenerator {
         }
         graphToPNG();
     }
-
-    void weightlessToPNG() {
-        toPNG(false);
-    }
-
-    void weightedToPNG() {
-        toPNG(true);
-    }
-
     private void graphToPNG(){
         String imageName = graph.name()+".png";
         try {
