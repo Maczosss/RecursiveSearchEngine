@@ -121,8 +121,16 @@ public class OurReader {
 
     }
 
-    public Map<String, List<String>> getMapForStory1() {
-        return mapForStory1;
+    public Map<String, Map<String,Integer>> getMapForStory1() {
+        Map<String, Map<String,Integer>> result = new HashMap<>();
+        for (String key: mapForStory1.keySet()){
+            Map<String,Integer> valueList=new HashMap<>();
+            for(String value: mapForStory1.get(key)){
+                valueList.put(value,1);
+            }
+            result.put(key,valueList);
+        }
+        return result;
     }
 
     public void trimMapToNewOneWithStrings() {
@@ -203,7 +211,7 @@ public class OurReader {
                 }
             }
             for (String line : lines) {
-                String[] arr = line.split(",");
+                String[] arr = line.split(", ");
                 results.addAll(Arrays.asList(arr));
                 results.add("File end");
             }

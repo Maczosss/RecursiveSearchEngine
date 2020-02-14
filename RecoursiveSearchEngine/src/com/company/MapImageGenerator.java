@@ -12,71 +12,52 @@ import static guru.nidi.graphviz.model.Factory.*;
 
 public class MapImageGenerator {
 
-    private Map<String, List<String>> neighbourMap = null;
     private String graphName;
     private Map<String, Integer> nodesWeights = null;
-    private Map<String, Map<String,Integer>> neighbourMap2 = null;
+    private Map<String, Map<String,Integer>> neighbourMap = null;
+    private MutableGraph graph;
 
-    MapImageGenerator(String name, Map<String, List<String>> neighbourMap) {
+
+    public MapImageGenerator(String name,Map<String,Map<String,Integer>> neighbourMap,Map<String,Integer> methodWeights) {
         this.neighbourMap = neighbourMap;
-        this.graphName=name;
-    }
-    MapImageGenerator(String name, Map<String, Map<String,Integer>> neighbourMap, Map<String, Integer> methodWeights) {
-        this.neighbourMap2 = neighbourMap;
         this.graphName=name;
         this.nodesWeights =methodWeights;
     }
 
+    void toPNG(boolean weighted) {
+        graph= mutGraph(graphName).setDirected(true);
 
+        for(String nodeName : neighbourMap.keySet()){
+            Map<String,Integer> endNodes = neighbourMap.get(nodeName);
 
-    void weightlessToPNG() {
-        MutableGraph graph= mutGraph(graphName).setDirected(true);
+            MutableNode beg = mutNode(nodeName);
 
-        for(Map.Entry<String,List<String>> element : neighbourMap.entrySet()){
-            String nodeName = element.getKey();
-            List<String> nodes = element.getValue();
-            MutableNode beg;
-            //if(nodesWeights==null) {
-                beg = mutNode(nodeName).add(Label.of(nodeName));
-            for(String a : nodes){
-                    beg.addLink(Link.to(mutNode(a)));
+            for(String end : endNodes.keySet()){
+                String value;
+                if(weighted) {
+                    value = endNodes.get(end).toString();
+                } else {
+                    value="";
+                }
+                //beg.addLink(Link.to(mutNode(a + "\n" + nodesWeights.get(a))).with(Label.of(value)));
+                beg.addLink(Link
+                        .to(mutNode(end))
+                        .with(Label.of(value)));
             }
             graph.add(beg);
         }
+        graphToPNG();
+    }
 
-        String imageName = graph.name()+".png";
-        try {
-            fromGraph(graph)
-                    .engine(Engine.FDP)
-                    .fontAdjust(0.9)
-                    .render(Format.PNG)
-                    .toFile(new File(imageName));
-            System.out.println(imageName + " generated successfully");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void weightlessToPNG() {
+        toPNG(false);
     }
 
     void weightedToPNG() {
-        MutableGraph graph= mutGraph(graphName).setDirected(true);
+        toPNG(true);
+    }
 
-        for(Map.Entry<String,Map<String,Integer>> element : neighbourMap2.entrySet()){
-            String nodeName = element.getKey();
-            Map<String,Integer> nodes = element.getValue();
-            MutableNode beg;
-            //if(nodesWeights==null) {
-            beg = mutNode(nodeName).add(Label.of(nodeName));
-            // }else{
-            //    beg = mutNode(nodeName).add(Label.of(nodeName + "\n" + nodesWeights.get(nodeName)));
-            //}
-
-            for(Map.Entry<String,Integer> a : nodes.entrySet()){
-                String value = a.getValue().toString();
-                //beg.addLink(Link.to(mutNode(a + "\n" + nodesWeights.get(a))).with(Label.of(value)));
-                beg.addLink(Link.to(mutNode(a.getKey())).with(Label.of(value)));
-            }
-            graph.add(beg);
-        }
+    private void graphToPNG(){
         String imageName = graph.name()+".png";
         try {
             fromGraph(graph)

@@ -44,7 +44,9 @@ public class MethodCounter {
                 }
                 temp=temp.trim();
 
-                declarationList.add(temp);
+                if(!declarationList.contains(temp)) {
+                    declarationList.add(temp);
+                }
                 //znajduje swoje deklaracje funckji i tworze ich liste
             }
         }
@@ -53,66 +55,40 @@ public class MethodCounter {
         System.out.println(declarationList.size());
 
 
-        final Pattern regexFuncCalls = Pattern.compile("(\\.[\\s\\n\\r]*[\\w]+)[\\s\\n\\r]*(?=\\(.*\\))");
-        //regex dzialajacy na kazde wywolanie funkcji.
-        //mniej przepuszcza
 
-
-        for (int i =0;i< dataList.size();i++) {
-            String loadedString=dataList.get(i);
-            Matcher matcher = regexFuncDeclar.matcher(loadedString);
-            if(loadedString.contains("//"))
-                continue;
-            if (matcher.find()) {                           //match do deklaracji
-                Map<String,Integer> methodsCallsAfter = new HashMap<>();
-                for (int j = 0;j<dataList.size();j++) {
-                    if(loadedString.contains(declarationList.get(j))) {
-                        methodCalls.put(declarationList.get(j)+")", methodsCallsAfter);
-                        break;
-                    }
-                }
-                                                                //tworze mape
-                int counter = 0;
-                if(loadedString.contains("{"))
-                    counter++;
-                                                        //for scopea deklaracji metody.
-                for (i+=1;i<dataList.size();i++) {
-                    String secondLoadedString=dataList.get(i);
-
-                    if (secondLoadedString.contains("{"))
+        for (String method: declarationList) {
+            int counter = 1;
+            boolean flag = false;
+            Map<String,Integer> localMethodsCalls = new HashMap<>();
+            for (String line: dataList) {
+                if(line.contains("//"))
+                    continue;
+                if(flag){
+                    if (line.contains("{"))
                         counter++;
-                    if (secondLoadedString.contains("}"))
+                    if (line.contains("}"))
                         counter--;
-
-                    Matcher matcher2 = regexFuncCalls.matcher(secondLoadedString);
-
-                    if (matcher2.find()) {
-                        //znalezienie matcha wywolanie funkcji = sprawdzanie z lista deklaracji naszych funkcji
-                        for(int j=0;j<declarationList.size();j++){
-                                                                        //dodawania do mapy
-                            if(secondLoadedString.contains(declarationList.get(j))){
-
-                                if(secondLoadedString.contains("//")){
-                                    continue;
-                                }
-
-                                methodsCallsAfter.put(declarationList.get(j),0);
-                                //Integer temp =0;
-
-                                methodsCallsAfter.put(declarationList.get(j),1);
-
-                            }
+                    for (String methodCall: declarationList){
+                        if(!line.contains(methodCall)){
+                            continue;
+                        }
+                        if(!localMethodsCalls.containsKey(methodCall+")")) {
+                            localMethodsCalls.put(methodCall+")", 1);
+                        } else {
+                            Integer temp = localMethodsCalls.get(methodCall+")");
+                            temp++;
+                            localMethodsCalls.put(methodCall+")", temp);
                         }
                     }
-                    //System.out.println(counter);
-
-                    if (counter == 0 || secondLoadedString.contains("endfile")) {
-                        //  System.out.println("ucieka do 1 fora");
+                    if(counter==0){
                         break;
                     }
+                } else if(line.contains(method) && line.contains("{")){
+                    flag=true;
                 }
-            }
 
+            }
+            methodCalls.put(method+")",localMethodsCalls);
         }
 
         System.out.println("\n\n\n\n");
