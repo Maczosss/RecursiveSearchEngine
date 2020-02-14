@@ -68,6 +68,10 @@ public class Frame extends JFrame implements ActionListener {
         layeredPane.add(button2, 5);
         layeredPane.add(button3, 6);
 
+
+        button3.setVisible(false);    //brak 3 historyjki
+
+
         scrollPane1.setVisible(true);
         scrollPane2.setVisible(false);           //set true false to change which picture is displayed
         scrollPane3.setVisible(false);
