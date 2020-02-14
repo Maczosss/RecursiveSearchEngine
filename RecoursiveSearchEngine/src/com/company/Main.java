@@ -1,48 +1,28 @@
 package com.company;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\macie\\OneDrive\\Desktop\\RecoursiveSearchEngine\\src\\com\\company");
-        BufferedReader reader = null;
-        List<String> lines = new ArrayList<>();
-        List<String> results = new ArrayList<>();
+        String fileName = System.getProperty("user.dir")+"\\RecoursiveSearchEngine\\src\\com\\company";
+        MapImageGenerator generator;
 
-        if (file.canRead()) {
-            for (File f : file.listFiles()) {
-                try {
-                    reader = new BufferedReader(new FileReader(f.getPath()));
-                    lines.add(reader.lines().collect(Collectors.toList()).toString());
-                } catch (FileNotFoundException e) {
-                    System.out.println("File not found!" + e);
-                }
-            }
-            for (String line : lines) {
-                String[] arr = line.split(",");
-                results.addAll(Arrays.asList(arr));
-                results.add("File end");
+        OurReader reader = new OurReader(fileName);
+        reader.getThroughFilesFromAbsoluteRoot(fileName);
+        reader.methodForStory1();
+        generator=new MapImageGenerator("test1",reader.getMapForStory1(),null);
+        generator.toPNG(false);
 
-            }
+        MethodCounter methodCounter = new MethodCounter(reader.getTextFromFiles());
+        methodCounter.countCalls();
 
-        }
-        for (String result : results) {
-            System.out.println(result + "\n");
-        }
-    }
+        generator=new MapImageGenerator("test2",methodCounter.getMethodCalls(),null);
+        generator.toPNG(true);
 
-    private static List<String> getFilterOutput(List<String> lines, String filter) {
-        List<String> result = new ArrayList<>();
-        for (String line : lines) {
-            if (line.contains(filter)) {
-                result.add(line);
-            }
-        }
-        return result;
+       String[]pngsPath=new String [3];
+       pngsPath[0]="test1.png";             //do podmiany nazwy png przekazywane do Frame jako sciezki do pliku
+       pngsPath[1]="test2.png";
+       pngsPath[2]="test3.png";
+       Frame frame=new Frame(pngsPath);
     }
 }
