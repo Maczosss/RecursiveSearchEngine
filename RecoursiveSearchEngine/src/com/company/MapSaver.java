@@ -1,7 +1,12 @@
 package com.company;
 
-import java.util.*;
+
 //Klasa była używana w poprzedniej iteracji projektu
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 class MapSaver {
     private Map<String, List<String>> neighbourMap = new HashMap<>();

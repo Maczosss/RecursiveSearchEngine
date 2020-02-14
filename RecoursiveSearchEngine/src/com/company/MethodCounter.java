@@ -1,6 +1,10 @@
 package com.company;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,10 +24,6 @@ public class MethodCounter {
         final Pattern regexFuncDeclar = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
         //regex znajdujacy deklaracje funkcji
 
-        // final Pattern regexFuncCalls = Pattern.compile("(?!\\bif\\b|\\bfor\\b|\\bwhile\\b|\\bswitch\\b|\\btry\\b|\\bcatch\\b)(\\b[\\w]+\\b)[\\s\\n\\r]*(?=\\(.*\\))");
-        //regex dzialajacy na kazde wywolanie funkcji.
-
-
         for(int i=0;i<dataList.size();i++){
             String loadedString=dataList.get(i);
             Matcher matcher= regexFuncDeclar.matcher(loadedString);
@@ -35,8 +35,7 @@ public class MethodCounter {
                  String temp= loadedString.substring(0,position);
                  temp+="(";
                  temp=temp.trim();
-                                                    //skrobanie stringa i usuwanie niepotrzebnych rzeczy
-
+                                                    //obcinanie stringa do potrzebnego formatu
                  position=temp.indexOf(' ');
                 while(position>0) {
                     temp = temp.substring(position + 1);
@@ -50,57 +49,50 @@ public class MethodCounter {
                 //znajduje swoje deklaracje funckji i tworze ich liste
             }
         }
-
         System.out.println(declarationList);
         System.out.println(declarationList.size());
-
 
 
         for (String method: declarationList) {
             int counter = 1;
             boolean flag = false;
-            Map<String,Integer> localMethodsCalls = new HashMap<>();
-            for (String line: dataList) {
-                if(line.contains("//"))
+            Map<String, Integer> localMethodsCalls = new HashMap<>();
+            for (String line : dataList) {
+                if (line.contains("//"))
                     continue;
-                if(flag){
+                if (flag) {
                     if (line.contains("{"))
                         counter++;
                     if (line.contains("}"))
                         counter--;
-                    for (String methodCall: declarationList){
-                        if(!line.contains(methodCall)){
+                    for (String methodCall : declarationList) {
+                        if (!line.contains(methodCall)) {
                             continue;
                         }
-                        if(!localMethodsCalls.containsKey(methodCall+")")) {
-                            localMethodsCalls.put(methodCall+")", 1);
+                        if (!localMethodsCalls.containsKey(methodCall + ")")) {
+                            localMethodsCalls.put(methodCall + ")", 1);
                         } else {
-                            Integer temp = localMethodsCalls.get(methodCall+")");
+                            Integer temp = localMethodsCalls.get(methodCall + ")");
                             temp++;
-                            localMethodsCalls.put(methodCall+")", temp);
+                            localMethodsCalls.put(methodCall + ")", temp);
                         }
                     }
-                    if(counter==0){
+                    if (counter == 0) {
                         break;
                     }
-                } else if(line.contains(method) && line.contains("{")){
-                    flag=true;
+                } else if (line.contains(method) && line.contains("{")) {
+                    flag = true;
                 }
 
             }
-            methodCalls.put(method+")",localMethodsCalls);
+            methodCalls.put(method + ")", localMethodsCalls);
         }
 
         System.out.println("\n\n\n\n");
-
         show();
-
     }
 
     public void show() {
-
-
-
         Iterator<Map.Entry<String, Map<String,Integer>>> entries = methodCalls.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<String, Map<String,Integer>> entry = entries.next();

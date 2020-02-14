@@ -1,11 +1,11 @@
 package com.company;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
-public class Frame extends JFrame implements ActionListener{
+public class Frame extends JFrame implements ActionListener {
 
     private Button button1;
     private Button button2;
@@ -51,7 +51,6 @@ public class Frame extends JFrame implements ActionListener{
         scrollPane3.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane1.getHorizontalScrollBar().setUnitIncrement(16);
 
-
             //buttons
         button1 = new Button(scrollPanelWidth,"1");
         button2 = new Button(scrollPanelWidth,"2");
@@ -73,9 +72,7 @@ public class Frame extends JFrame implements ActionListener{
         scrollPane2.setVisible(false);           //set true false to change which picture is displayed
         scrollPane3.setVisible(false);
         setVisible(true);
-
 }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -86,7 +83,6 @@ public class Frame extends JFrame implements ActionListener{
             scrollPane1.setVisible(true);
             scrollPane2.setVisible(false);
             scrollPane3.setVisible(false);
-
         }
 
         else if(source == button2)
@@ -94,14 +90,12 @@ public class Frame extends JFrame implements ActionListener{
             scrollPane1.setVisible(false);
             scrollPane2.setVisible(true);
             scrollPane3.setVisible(false);
-
         }
         else if(source == button3)
         {
             scrollPane1.setVisible(false);
             scrollPane2.setVisible(false);
             scrollPane3.setVisible(true);
-
     }
 
     }
